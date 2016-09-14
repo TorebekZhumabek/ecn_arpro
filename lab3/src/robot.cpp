@@ -67,6 +67,18 @@ void Robot::MoveVW(const double &_v, const double &_omega)
 }
 
 
+// try to go to a given position
+void Robot::GoTo(const double &_x, const double &_y)
+{
+    // uses X-Y-theta motion (impossible in practice)
+    MoveXYT(-0.5*(x_-_x), -0.5*(y_-_y),0);
+
+
+}
+
+
+
+
 void Robot::PrintPosition()
 {
     cout << "Current position: " << x_<< ", " << y_ << endl;
@@ -75,7 +87,7 @@ void Robot::PrintPosition()
 void Robot::PlotTraj(const Environment &_envir)
 {
     // plot position history
-    matplotlibcpp::plot(x_history_, y_history_, "b");
+    matplotlibcpp::named_plot("Robot", x_history_, y_history_, "b");
 
     // plot start and end position
     vector<double> x(1), y(1);
@@ -84,7 +96,11 @@ void Robot::PlotTraj(const Environment &_envir)
     matplotlibcpp::named_plot("Start", x, y, "gD");
     x[0] = *(x_history_.end()-1);
     y[0] = *(y_history_.end()-1);
-    matplotlibcpp::named_plot("End", x,y,"rD");
+    matplotlibcpp::named_plot("End", x,y,"rD");    
+
+    // plot target motion
+    matplotlibcpp::named_plot("Target", _envir.x_hist, _envir.y_hist, "m");
+
     matplotlibcpp::legend();
 
     // plot environment

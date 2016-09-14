@@ -4,7 +4,6 @@
 #include <vector>
 #include <matplotlibcpp.h>
 #include <envir.h>
-#include <envir.h>
 
 namespace arpro
 {
@@ -32,6 +31,9 @@ public:
     
     // move robot with given wheel velocity
     void RotateWheels(double &_left, double &_right);
+
+    // try to go to a given (x,y) position
+    void GoTo(const double &_x, const double &_y);
     
     // prints the current position
     void PrintPosition();

@@ -4,9 +4,6 @@
 
 #include <robot.h>
 
-// default environment and motions
-#include <defaults.h>
-
 using namespace std;
 using namespace arpro;
 
@@ -29,16 +26,17 @@ int main()
     double vx, vy, v, omega_left, omega_right, omega;
     for(unsigned int i=0;i<10000;++i)
     {
+        // update target position
+        envir.UpdateTarget();
+
         // use cartesian setpoint
-        DefaultCartesianSetpoint(i, vx, vy, omega);
-        robot.MoveXYT(vx, vy, omega);
+        robot.GoTo(envir.target.x, envir.target.y);
+        //robot.MoveXYT(vx, vy, omega);
 
         // use robot frame velocity
-        DefaultVelocitySetpoint(i, v, omega);
         //robot.MoveVW(v, omega);
 
-        // use wheels
-        DefaultWheelSetpoint(i, omega_left, omega_right);
+        // use wheels        
         //robot.RotateWheels(omega_left, omega_right);
 
 
