@@ -180,18 +180,20 @@ The goal is to be the first to align 4 tokens, either vertically, horizontally o
 \end{center}
 
 
-\section{Optimization}
+\section{Algorithms}
 
-In this section, we program the computer to solve a given problem. It may be defined in a file or be randomly generated.
-The use of the STL and of the \texttt{math.h} functions will be of good use.
+In this section, we program the computer to solve a given problem through an algorithm. Similarly to a cooking recipe, an algorithm is a sequence of basic steps (like finding the minimum value in a vector) that lead to an overall more complex behavior.
+
+The problem data may be defined in a file or be randomly generated.
+The use of the STL and of the \texttt{math.h} functions will be of good use. 
 
 \subsection{Tower of Hanoi}
 
 This one is a classical mathematical puzzle.
-A given number disks of different sizes are placed on three rods.
+A given number of disks of different sizes are placed on three rods.
 The only constraint is that a bigger disk cannot be above a smaller one. 
 
-The goal is to move the disks one at a time in order to have them all on a single rod.
+The goal is to move the disks one at a time (only the top disk of a rod may be moved to another rod) in order to have them all on a single rod.
 The Wikipedia page will give you strong hints to solve this problem.
 
 The starting position of the disks may be randomly generated or written in a file. The goal is of course to use a minimum number of moves.
@@ -216,7 +218,7 @@ The starting position of the disks may be randomly generated or written in a fil
  We thus have a 100$\times$100 grid of all potential $(\rho,\theta)$ corresponding to 10000 lines.
  
  In practice, at the beginning of the program you can define $X$ as [-10, .., 10] and chose one, then two values for $(a,b)$.
- Then $Y$ is computed as $Y=aX+b$ and you have your set of X and Y coordinates. You can also add some random numbers to make it more difficult to the algorithm.
+ Then $Y$ is computed as $Y=aX+b$ and you have your set of X and Y coordinates. You can also add some random points to make it more difficult to the algorithm.
  
  The algorithm is given below.
 
