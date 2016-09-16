@@ -9,11 +9,19 @@
 
 \insertsubtitle{Lab 1: Open projects}
 
+\newcommand{\involves}[1]{
+\item {\bf C++ skills:} #1
+}
+
+\newcommand{\aitip}[1]{
+\item {\bf AI tips:} #1
+}
+
 
 \section{Content of this lab}
 
-The goal of the first C++ labs are to learn C++ by building your own project.
-Several small projects are listed below and you are encouraged to try and build several of them. Many of them can be done without using evolved concepts of C++.
+The goal of the first C++ labs are to discover the language by building small projects.
+Many projects are listed below and you are encouraged to try and build several of them. Most of them can be done without using evolved concepts of C++. You can also build your own project if you have a clear idea of the goal to be reached.
 
 You are encouraged to use functions, classes or even templates if you think it will lead to a better code that is easier to understand and to write.
 You are also encouraged to separate your code in several files. If you are not sure about classes or functions, you can always change it later and compare
@@ -66,6 +74,20 @@ The CMake file is used to generate a Makefile. The steps are:
  \item Then launch your program: \texttt{./mygame}
 \end{enumerate}
 
+\subsection{How to use QtCreator}
+
+The IDE\footnote{Integrated Development Environment} that will be used for C++ (and all my other labs) is Qt Creator. It is an open source, multi-platform IDE based on the Qt framework (which is used in the KDE Linux desktop). 
+Before loading a project in Qt Creator, you have at least to write a basic CMakeLists.txt file (even without executables) and to create the \texttt{build} folder. You can then run Qt Creator:
+\begin{enumerate}
+\item Load the CMakeLists.txt file through \texttt{File...open project}
+\item Give the path to your \texttt{build} directory
+\item Qt Creator will then execute CMake and display the source files found in CMakeLists.txt (if any)
+\item To add a file (.cpp or .h), you can create an empty one with \texttt{File... new file} 
+\item Add this file in the CMakeLists.txt and right-click to run CMake to tell Qt Creator that the structure f the project has changed
+\item Compilation is done by clicking the bottom-left hammer
+\item Run your program with the green triangle. However, if you need user input, you will need to run the program from the console.
+\end{enumerate}
+
 
 \section{Single player games}
 
@@ -75,28 +97,21 @@ motivation (and game AI possibilities...).
 
 \subsection{Find the number}
 
-Here both the players start by giving a number between 1 and 100 to the computer. Then they try to find the number of the other player
-in a minimum number of turns.
+Here the computer start by choosing randomly a number between 1 and 100. The player has to find this number with trial and error, the only answer being whether the number is greater or lesser than the goal.
+This can also be done in reverse, where the computer has to guess.
 
 \begin{itemize}
- \item This game involves: Input/output
- \item AI tips: Random numbers depend on seed
+ \involves{Input/output}
+ \aitip{Random numbers depend on seed}
 \end{itemize}
 
 \subsection{Rock-paper-scissors}
 
-The player is asked to choose between rock, paper or scissors. The computer also does a choice and the winner depends on the two choices:
-\begin{itemize}
- \item Rock beats Scissors
- \item Paper beats Rock
- \item Scissors beats Rock
- \item Draw in the case of equal choices
-\end{itemize}
-
+The player is asked to choose between rock, paper or scissors. The computer also does a choice and the winner depends on the two choices: Rock beats Scissors, Paper beats Rock, Rock beats Scissors, Draw in the case of equal choices.
 
 \begin{itemize}
- \item This game involves: Input/output, Random numbers
-  \item AI tips: none, this game is completely random
+ \involves{Input/output, Random numbers}
+  \aitip{none, this game is completely random}
 \end{itemize}
 
 \section{Turn-based text games}
@@ -111,8 +126,8 @@ Each player has to pick up 1 to 3 sticks, then the other player can pick up his 
 The goal is not to have to pick the last stick.
 
 \begin{itemize}
- \item This game involves: Input/output
- \item AI tips: If you can start correctly you may never lose.
+ \involves{Input/output}
+ \aitip{If you can start correctly you may never lose}
 \end{itemize}
 
 \subsection{Battleship}
@@ -154,8 +169,8 @@ The current grids should be displayed with:
  \end{tabular}
 \end{center}
 \begin{itemize}
- \item This game involves: Input/output, Vectors, File input, Data representation
- \item AI tips: Do not target the same cell twice, finish what you started
+ \involves{Input/output, Vectors, File input, Data representation}
+ \aitip{Do not target the same cell twice, finish what you started}
 \end{itemize}
 
 
@@ -163,10 +178,7 @@ The current grids should be displayed with:
 
 This game is played on a 6$\times$7 grid. Each player has to drop a token in one of the column, that will fall to the bottom or above potential existing tokens in this column.
 The goal is to be the first to align 4 tokens, either vertically, horizontally or diagonally.
-\begin{itemize}
- \item This game involves: Input/output, Vectors, Data representation
- \item AI tips: Do not let the other player align 4 token, or try to guess best possible choices for the next 1, 2, 10... turns.
-\end{itemize}
+
 \begin{center}
  \begin{tabular}{|c|c|c|c|c|c|c|}
  \hline  
@@ -178,7 +190,10 @@ The goal is to be the first to align 4 tokens, either vertically, horizontally o
  . &o&x&x&o &o&.\\\hline
  \end{tabular}
 \end{center}
-
+\begin{itemize}
+ \involves{Input/output, Vectors, Data representation}
+ \aitip{Do not let the other player align 4 token (that is just trying not to lose), or try to guess best possible choices for the next 1, 2, 10... turns.}
+\end{itemize}
 
 \section{Algorithms}
 
@@ -187,6 +202,43 @@ In this section, we program the computer to solve a given problem through an alg
 The problem data may be defined in a file or be randomly generated.
 The use of the STL and of the \texttt{math.h} functions will be of good use. 
 
+\subsection{1D function minimization}
+
+Function minimization consists in finding the minimum value of a function, and where this value is reached. A classical algorithm to do so is the gradient descent. The corresponding algorithm is as follow:
+
+\begin{algorithm}[!h]
+\SetKwComment{Comment}{(}{)}
+% \SetAlgoLined
+\KwData {derivative $f'$, starting point $x$, max iterations, gain $\lambda$, min gradient $g_m$}
+\KwResult {$x$, the point where f reaches its minimum value}
+%add $P_0$ to $\mathcal{P}_s$\;
+iter$\gets$0\;
+$g\gets2\times g_m$\;
+\While{iter $<$ iter$_{max}$ and $g < g_m$}
+{
+$g\gets f'(x)$\;
+$x\gets x - \lambda.g$\;
+}
+\Return $x$\;
+\caption{Gradient descent}
+\label{algo:grad}
+\end{algorithm}
+
+This algorithm relies on the function derivative $f'(x)$ that must be defined. A simple case can be to find the minimum of the function $f(x) = ax^2+bx+c$ where $a>0$, starting from any value of $x$.
+
+\begin{itemize}
+ \involves{Functions}
+ \end{itemize}
+ 
+\subsection{nD function minimization}
+
+Here the function to be minimized is still a scalar but may take several arguments. A typical case is a quadratic function over $\mathbb{R}^n$: $f(\x) = \x^T\Q\x$. The algorithm is the same as in 1D minimization except that $\x$ has several components. Instead of a function for the derivative, we need thus a function to compute the Jacobian of $f$ that will return a n-D vector for all derivatives along the $x_i$'s. 
+
+\begin{itemize}
+ \involves{Functions, Vector}
+ \end{itemize}
+
+ 
 \subsection{Tower of Hanoi}
 
 This one is a classical mathematical puzzle.
@@ -199,7 +251,7 @@ The Wikipedia page will give you strong hints to solve this problem.
 The starting position of the disks may be randomly generated or written in a file. The goal is of course to use a minimum number of moves.
 
 \begin{itemize}
- \item This involves: File input, output, Vectors, Data representation, Recursive programming
+ \involves{File input, output, Vectors, Data representation, Recursive programming (functions)}
  \end{itemize}
  
  \subsection{Robust fitting with Hough lines}
@@ -244,7 +296,7 @@ $(\rho,\theta)$ are the values where RT[i,j] $>$ n\;
 \end{algorithm}
 
 \begin{itemize}
- \item This involves: Output, Vectors, Sort and Find maximum (STL)
+ \involves{Output, Vectors, Sort and Find maximum (STL)}
  \end{itemize}
  
  
@@ -257,7 +309,7 @@ $(\rho,\theta)$ are the values where RT[i,j] $>$ n\;
  also any kind of graph where we want to find the shortest path. 
  
  \begin{itemize}
- \item This involves: File input, output, Vectors, Data representation, Sort and find minimum (STL), Classes, Inheritance, Templates or References
+ \involves{File input and output, Vectors, Data representation, Sort and find minimum (STL), Classes, Inheritance, Templates or References}
  \end{itemize}
  
  \subsubsection{General A* algorithm}
@@ -377,21 +429,96 @@ In this case:
 \end{itemize}
 
 Note that not all starting grids can reach the desired one. The best way to build a starting position is to start from the desired one and randomly move cells
-for 30 to 40 steps. The algorithm will usually find a much shorter path to come back.
+for 30 to 40 steps. You will be surprised the algorithm will usually find a much shorter path to come back.
+
+You should write the different steps in a file with the corresponding move and grid, to go from the starting grid to the desired one.
+
+\subsection{Genetic algorithms}
 
 
+Sometimes we want to find the minimum of a function that has many input variables and where the gradient descent algorithms cannot work because we have a lot of local minima (meaning that quickly the algorithm will stop even if the global minimum is not reached). In this case, Genetic Algorithms are a class of methods that are based on a heuristic search of the minimum. 
 
-\section{Genetic algorithms}
+In the GA method, an input point is called an individual and has a given score (which is simply the function evaluated for this input). We start by generating a set of random individuals, called the population. We then keep a number of best individuals amongst this population, and fill up the new population by re-generating new individuals that may be better. The overall algorithm is represented in Algorithm \ref{algo:ga}.
 
+As we see, the algorithm by itself only needs three particular functions for individuals:
+\begin{itemize}
+\item The evaluation function that gives the score of the individual.
+\item The Crossing function that takes two individuals to return a new one. This function can be seen as changing two parents into one child that would be a mix of the parents's properties.
+\item The Mutate function that slightly changes an individual.
+\end{itemize}These functions depend on the actual problem that we are solving, two examples are shown below.
 
+ \begin{itemize}
+ \involves{File input and output, Vectors, Data representation, Sort and find minimum (STL), Classes, Inheritance, Templates or References}
+ \end{itemize}
 
-
-
+\begin{algorithm}[!h]
+\SetKwComment{Comment}{(}{)}
+% \SetAlgoLined
+\KwData {Population size n, function $f$ to be minimized, max iterations that do not change the best individual, number k of individuals that we always keep}
+\KwResult {Individual that minimizes $f$}
+%add $P_0$ to $\mathcal{P}_s$\;
+population$\gets$ n random individuals\;
+iter$\gets$0\;
+\While{iter $<$ iter$_{max}$}{
+best$\gets$best individual from population\;
+new\_population$\gets$best k individuals from population\;
+\For{i from k+1 to n/2}{
+n1$\gets$random number between 1 and n\;
+n2$\gets$random number between 1 and n, different from n1\;
+new\_population$\gets$ best between population[n1] and population[n2]\; 
+}
+\For{i from 1 to n/2}{
+n1$\gets$random number between 1 and n\;
+n2$\gets$random number between 1 and n, different from n1\;
+new\_indiv = cross(population[n1], population[n2])\;
+new\_indiv.mutate()\;
+new\_population.Add(new\_indiv)\;
+}
+population$\gets$new\_population\;
+new\_best$\gets$best individual from population\;
+\eIf{new\_best == best}{iter$\gets$iter+1\;}{iter$\gets$0\;}
+}
+\caption{Genetic Algorithm}
+\label{algo:ga}
+\end{algorithm}\newpage
  
+\subsubsection{Minimizing a function on $\mathbb{R}^2$}
 
+A classical function to test GA is the Rastrigin's function:
+\begin{equation*}
+f(x,y) = 20 + x^2 + y^2 - 10\left(\cos(2\pi x) + \cos(2\pi y)\right)
+\end{equation*}The graph looks like this, with the global minimum at (0,0):
+\begin{center}
+\includegraphics[width=.5\linewidth]{rastrigins_with_line2}
+\end{center}
 
+For this kind of problem:
+\begin{itemize}
+\item An individual is of course a (x,y) position
+\item A random individual consists in random (x,y) values in [-5,5]
+\item The evaluation function is $f(x,y)$
+\item Crossing two individuals consists in computing intermediary values: $x_{\text{new}} = \alpha x_1 + (1-\alpha) x_2$ where $\alpha$ is a random number in $[0,1]$
+\item Mutating an individual is slightly changing its (x,y) values with a random number
+\end{itemize}
 
+\subsubsection{The traveling salesman problem}
 
+Like the Tower of Hanoi, the TSP is a classical mathematical problem. We assume a salesman has to go in various cities to sell his stuff. Plane tickets are of course at a different price to go from one city to another (or maybe there is not always a direct plane from A to B). The goal is to find the sequence of cities that will have the salesman go only once in each city, come back at his initial city, and all that with the minimum price.
+
+In our case, the ECN administration forgot to give you the diplomas at the end of the master. I thus have to go to all students's capital cities to deliver it and of course I do not want to spend too much on the plane tickets. The file \texttt{tsp.yaml} gives the list of all cities and their distances\footnote{Plane tickets price are not proportional to distances but it was easy to generate automatically all distances between the cities}.
+
+In this instance of Genetic algorithm:
+\begin{itemize}
+\item An individual is a sequence of numbers from 1 to N giving the travel ordering
+\item A random individual consists in a random permutation of [1..N]
+\item The evaluation function of an individual is the price required to travel through the corresponding city ordering
+\item Crossing two travels consists in keeping the beginning of the first parent up to a random city, and finish with the remaining cities in the ordering given by the second parent
+\item Mutating an individual can be switching two cities randomly
+\end{itemize}
+
+ \begin{itemize}
+ \involves{Yaml file input}
+ \end{itemize}
 
 
 
