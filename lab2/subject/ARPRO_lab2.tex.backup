@@ -21,7 +21,7 @@ The simulator is defined by several headers and source files, as defined in \Fig
 \begin{minipage}{.25\linewidth} ~ \end{minipage}
 \begin{minipage}{.5\linewidth}
  \dirtree{%
-.1 lab2. 
+.1 lab3. 
 .2 include.
 .3 default.h.
 .3 envir.h.

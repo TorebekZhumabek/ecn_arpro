@@ -2,11 +2,16 @@
 #define ROBOT_H
 
 #include <vector>
-#include <matplotlibcpp.h>
-#include <envir.h>
 
 namespace arpro
 {
+
+struct Point
+{
+    double x;
+    double y;
+    Point(double _x=0, double _y=0) {x = _x;y = _y;}
+};
 
 class Robot
 {
@@ -15,32 +20,40 @@ public:
     Robot(const double &_x, const double &_y, const double &_theta);
 
     // change sampling time
-    inline void SetSamplingTime(const double &_dt) {dt_ = _dt;}
+    inline void setSamplingTime(const double &_dt) {dt_ = _dt;}
     
-    // get the current position
-    void GetPosition(double &_x, double &_y, double &_theta) const;
+    // get the current position in x,y,theta
+    void getPosition(double &_x, double &_y, double &_theta) const;
+
+    // get the current position in Point
+    inline Point getPosition() const
+    {
+        return Point(x_, y_);
+    }
     
     // move robot with a given (x,y,theta) velocity
-    void MoveXYT(const double &_vx, const double &_vy, const double &_omega);
+    void moveXYT(const double &_vx, const double &_vy, const double &_omega);
 
     // move robot with linear and angular velocities
-    void MoveVW(const double &_v, const double &_omega);
+    void moveVW(const double &_v, const double &_omega);
     
     // initialize the wheel model
-    void InitWheel(const double &_radius, const double &_base);
+    void initWheel(const double &_radius, const double &_base);
     
     // move robot with given wheel velocity
-    void RotateWheels(double &_left, double &_right);
+    void rotateWheels(double &_left, double &_right);
 
     // try to go to a given (x,y) position
-    void GoTo(const double &_x, const double &_y);
+    void goTo(const Point &_p);
     
     // prints the current position
-    void PrintPosition();
-    
-    // plots the trajectory in the given environment
-    void PlotTraj(const Environment &_envir);
+    void printPosition();
 
+    inline void getHistory(std::vector<double> &_x, std::vector<double> &_y)
+    {
+        _x = x_history_;
+        _y = y_history_;
+    }
 
 protected:
     // position

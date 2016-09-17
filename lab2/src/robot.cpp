@@ -1,5 +1,4 @@
 #include <iostream>
-#include <algorithm>
 #include <math.h>
 
 #include <robot.h>
@@ -9,7 +8,10 @@ using namespace std;
 
 Robot::Robot(const double &_x, const double &_y, const double &_theta)
 {
-    
+    x_ = _x;
+    y_ = _y;
+    theta_ = _theta;
+
     // init position history
     x_history_.push_back(_x);
     y_history_.push_back(_y);
@@ -22,7 +24,7 @@ Robot::Robot(const double &_x, const double &_y, const double &_theta)
 }
 
 
-void Robot::GetPosition(double &_x, double &_y, double &_theta) const
+void Robot::getPosition(double &_x, double &_y, double &_theta) const
 {
     // to fill up
 
@@ -30,7 +32,7 @@ void Robot::GetPosition(double &_x, double &_y, double &_theta) const
 }
 
 
-void Robot::MoveXYT(const double &_vx, const double &_vy, const double &_omega)
+void Robot::moveXYT(const double &_vx, const double &_vy, const double &_omega)
 {
     // update position
     x_ += _vx*dt_;
@@ -43,7 +45,7 @@ void Robot::MoveXYT(const double &_vx, const double &_vy, const double &_omega)
 }
 
 
-void Robot::InitWheel(const double &_radius, const double &_base)
+void Robot::initWheel(const double &_radius, const double &_base)
 {
     // to fill up
     
@@ -52,14 +54,14 @@ void Robot::InitWheel(const double &_radius, const double &_base)
 }
 
 
-void Robot::RotateWheels(double &_left, double &_right)
+void Robot::rotateWheels(double &_left, double &_right)
 {
     // to fill up
 }
 
 
 // move robot with linear and angular velocities
-void Robot::MoveVW(const double &_v, const double &_omega)
+void Robot::moveVW(const double &_v, const double &_omega)
 {
     // to fill up
     
@@ -68,70 +70,17 @@ void Robot::MoveVW(const double &_v, const double &_omega)
 
 
 // try to go to a given position
-void Robot::GoTo(const double &_x, const double &_y)
+void Robot::goTo(const Point &_p)
 {
     // uses X-Y-theta motion (impossible in practice)
-    MoveXYT(-0.5*(x_-_x), -0.5*(y_-_y),0);
+    moveXYT(-0.5*(x_-_p.x), -0.5*(y_-_p.y),0);
 
 
 }
 
 
-
-
-void Robot::PrintPosition()
+void Robot::printPosition()
 {
     cout << "Current position: " << x_<< ", " << y_ << endl;
 }
 
-void Robot::PlotTraj(const Environment &_envir)
-{
-    // plot position history
-    matplotlibcpp::named_plot("Robot", x_history_, y_history_, "b");
-
-    // plot start and end position
-    vector<double> x(1), y(1);
-    x[0] = x_history_[0];
-    y[0] = y_history_[0];
-    matplotlibcpp::named_plot("Start", x, y, "gD");
-    x[0] = *(x_history_.end()-1);
-    y[0] = *(y_history_.end()-1);
-    matplotlibcpp::named_plot("End", x,y,"rD");    
-
-    // plot target motion
-    matplotlibcpp::named_plot("Target", _envir.x_hist, _envir.y_hist, "m");
-
-    matplotlibcpp::legend();
-
-    // plot environment
-    // walls
-    if(_envir.walls.size() > 0)
-    {
-        x.resize(_envir.walls.size());
-        y.resize(_envir.walls.size());
-        for(unsigned int i=0;i<_envir.walls.size();++i)
-        {
-            x[i] = _envir.walls[i].x;
-            y[i] = _envir.walls[i].y;
-        }
-
-        double  x_min = *(std::min_element(x.begin(), x.end())),
-                x_max = *(std::max_element(x.begin(), x.end())),
-                y_min = *(std::min_element(y.begin(), y.end())),
-                y_max = *(std::max_element(y.begin(), y.end()));
-
-        // invisible plot just for size
-        vector<double> x_minmax(2), y_minmax(2);
-        x_minmax[0] = x_min - .05*(x_max - x_min);
-        x_minmax[1] = x_max + .05*(x_max - x_min);
-        y_minmax[0] = y_min - .05*(y_max - y_min);
-        y_minmax[1] = y_max + .05*(y_max - y_min);
-        matplotlibcpp::plot(x_minmax, y_minmax, "w.");
-
-        x.push_back(x[0]);
-        y.push_back(y[0]);
-        matplotlibcpp::plot(x, y, "k");
-    }
-
-    matplotlibcpp::show();
-}

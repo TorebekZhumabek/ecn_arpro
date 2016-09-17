@@ -3,6 +3,7 @@
 #include <cmath>
 
 #include <robot.h>
+#include <envir.h>
 
 using namespace std;
 using namespace arpro;
@@ -10,39 +11,36 @@ using namespace arpro;
 
 int main()
 {
+    // init environment
+    Environment envir;
+
     // init robot at (0,0,0)
     Robot robot(0,0,0);
     // set sampling time
-    robot.SetSamplingTime(.01);
+    robot.setSamplingTime(.01);
 
-    // init environment
-    Environment envir = DefaultEnvironment();
+    Robot robot2(0,-1,0);
+    // set sampling time
+    robot.setSamplingTime(.01);
 
-    /* move robot with:
-    - (vx, vy, omega) (Cartesian)
-    - or (v, omega) (local frame)
-    - or (omega_left, omega_right) (wheel velocities)
-    */
-    double vx, vy, v, omega_left, omega_right, omega;
+    // add this robot to the environment (for plotting)
+    envir.addRobot(robot);
+    envir.addRobot(robot2);
+
+
+
+
     for(unsigned int i=0;i<10000;++i)
     {
         // update target position
-        envir.UpdateTarget();
+        envir.updateTarget();
 
-        // use cartesian setpoint
-        robot.GoTo(envir.target.x, envir.target.y);
-        //robot.MoveXYT(vx, vy, omega);
-
-        // use robot frame velocity
-        //robot.MoveVW(v, omega);
-
-        // use wheels        
-        //robot.RotateWheels(omega_left, omega_right);
-
-
+        // try to follow target
+        robot.goTo(envir.target);
+        robot2.goTo(robot.getPosition());
     }
 
     // plot trajectory
-    robot.PlotTraj(envir);
+    envir.plot();
     
 }
