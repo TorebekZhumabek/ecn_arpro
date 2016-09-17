@@ -52,6 +52,8 @@ struct Environment
     {
         unsigned int i=0;
         std::vector<double> x,y, x_start, y_start, x_end, y_end;
+        std::vector<std::string> colors = {"b","g","r","c"};
+
         for(auto &robot: robots_)
         {
             robot->getHistory(x,y);
