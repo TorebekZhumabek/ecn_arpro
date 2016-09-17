@@ -49,6 +49,7 @@ Thumbs.db
 # TEX files #
 ######################
 *~
+*.backup
 *.syntex*
 *.aux
 *.log
