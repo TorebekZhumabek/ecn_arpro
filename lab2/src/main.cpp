@@ -15,20 +15,10 @@ int main()
     Environment envir;
 
     // init robot at (0,0,0)
-    Robot robot(0,0,0);
-    // set sampling time
-    robot.setSamplingTime(.01);
-
-    Robot robot2(0,-1,0);
-    // set sampling time
-    robot.setSamplingTime(.01);
+    Robot robot("R2D2", 0,0,0);
 
     // add this robot to the environment (for plotting)
     envir.addRobot(robot);
-    envir.addRobot(robot2);
-
-
-
 
     for(unsigned int i=0;i<10000;++i)
     {
@@ -37,7 +27,6 @@ int main()
 
         // try to follow target
         robot.goTo(envir.target);
-        robot2.goTo(robot.getPosition());
     }
 
     // plot trajectory

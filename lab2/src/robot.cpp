@@ -6,11 +6,13 @@
 using namespace arpro;
 using namespace std;
 
-Robot::Robot(const double &_x, const double &_y, const double &_theta)
+Robot::Robot(const std::string &_name, const double &_x, const double &_y, const double &_theta)
 {
     x_ = _x;
     y_ = _y;
     theta_ = _theta;
+
+    name_ = _name;
 
     // init position history
     x_history_.push_back(_x);
@@ -18,9 +20,6 @@ Robot::Robot(const double &_x, const double &_y, const double &_theta)
 
     // default sampling time: 1/100 s
     dt_ = .01;
-
-    // nothing has been initialized
-    wheels_init_ = false;
 }
 
 
@@ -45,36 +44,29 @@ void Robot::moveXYT(const double &_vx, const double &_vy, const double &_omega)
 }
 
 
-void Robot::initWheel(const double &_radius, const double &_base)
+void Robot::rotateWheels(double _left, double _right)
 {
-    // to fill up
-    
-    
-    wheels_init_ = true;
-}
+    // to fill up after defining an initWheel method
 
-
-void Robot::rotateWheels(double &_left, double &_right)
-{
-    // to fill up
 }
 
 
 // move robot with linear and angular velocities
-void Robot::moveVW(const double &_v, const double &_omega)
+void Robot::moveVW(double _v, double _omega)
 {
     // to fill up
-    
-    
 }
 
 
-// try to go to a given position
+// try to go to a given x-y position
 void Robot::goTo(const Point &_p)
 {
-    // uses X-Y-theta motion (impossible in practice)
-    moveXYT(-0.5*(x_-_p.x), -0.5*(y_-_p.y),0);
+    // desired motion
+    double vx = -0.5*(x_-_p.x),
+           vy = -0.5*(y_-_p.y);
 
+    // uses X-Y motion (impossible in practice)
+    moveXYT(vx, vy,0);
 
 }
 

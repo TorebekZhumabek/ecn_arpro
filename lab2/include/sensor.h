@@ -12,19 +12,24 @@ class Sensor
 {
 public:
     // no constructor
-
-    // init attributes
-    void init(const double &_x, const double &_y, const double &_theta, const std::string &_name)
+    Sensor(const std::string &_name)
     {
+        name_ = _name;
+    }
+
+    // attach to a robot
+    void attach(Robot &_robot, const double &_x, const double &_y, const double &_theta)
+    {
+        robot_ = &_robot;
         x_ = _x;
         y_ = _y;
         theta_ = _theta;
-        name_ = _name;
+
         s_history_.clear();
     }
 
-    // update from robot and environment
-    virtual void update(const Robot &_robot, const Environment &_envir) = 0;
+    // update from environment
+    virtual void update(const Environment &_envir) = 0;
 
     // print current measurement
     inline void print() {std::cout << name_ << ": " << s_ << std::endl;}
@@ -45,6 +50,8 @@ public:
 protected:
     // sensor position in robot frame
     double x_, y_, theta_;
+    // robot on which the sensor is attached
+    Robot* robot_;
     // sensor name
     std::string name_;
     // current measurement

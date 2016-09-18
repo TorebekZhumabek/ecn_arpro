@@ -32,10 +32,15 @@ struct Environment
         robots_.clear();
     }
 
+    // the target draws a cardoid curve
     void updateTarget()
     {
-        target.x = 1+0.001*iter*cos(0.002*iter);
-        target.y = 0.001*iter*sin(0.002*iter);
+        double c = -cos(0.0005*iter),
+                s = -sin(0.0005*iter);
+        double a = 6, b = 10;
+        target.x = (a + b*c)*c+a+1-b;
+        target.y = (a + b*c)*s;
+
         x_hist.push_back(target.x);
         y_hist.push_back(target.y);
         iter++;
@@ -46,34 +51,38 @@ struct Environment
         robots_.push_back(&_robot);
     }
 
+    void plot_trajectory(std::string name_, std::vector<double> x_, std::vector<double> y_, std::string color_)
+    {
+
+        matplotlibcpp::named_plot(name_, x_, y_,color_);
+        // start and end positions
+        std::vector<double> x_start = {x_[0]},
+                y_start = {y_[0]},
+                x_end = {x_[x_.size()-1]},
+                y_end = {y_[y_.size()-1]};
+        matplotlibcpp::plot(x_start, y_start, color_+"D");
+        matplotlibcpp::plot(x_end, y_end, color_+"s");
+    }
+
 
     // plots the trajectory in the given environment
     void plot()
     {
-        unsigned int i=0;
-        std::vector<double> x,y, x_start, y_start, x_end, y_end;
+        std::vector<double> x,y;
         std::vector<std::string> colors = {"b","g","r","c"};
 
+        unsigned int i=0;
         for(auto &robot: robots_)
         {
             robot->getHistory(x,y);
-            std::stringstream ss;
-            ss << "Robot " << ++i;
-            matplotlibcpp::named_plot(ss.str(), x, y);
-
-            // start and end positions
-            x_start.push_back(x[0]);
-            x_end.push_back(x[x.size()-1]);
-            y_start.push_back(y[0]);
-            y_end.push_back(y[y.size()-1]);
+            plot_trajectory(robot->name(), x, y, colors[i]);
+            ++i;
         }
 
         // plot target motion
-        matplotlibcpp::named_plot("Target", x_hist, y_hist, "m");
-
-        matplotlibcpp::named_plot("Start", x_start, y_start, "gD");
-        matplotlibcpp::named_plot("End", x_end,y_end,"rD");
-
+        plot_trajectory("Target", x_hist, y_hist, "m");
+        matplotlibcpp::named_plot("Initial poses", std::vector<double>(), std::vector<double>(), "kD");
+        matplotlibcpp::named_plot("Final poses", std::vector<double>(), std::vector<double>(), "ks");
         matplotlibcpp::legend();
 
         // plot environment
