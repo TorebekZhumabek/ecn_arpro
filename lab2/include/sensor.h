@@ -11,7 +11,7 @@ namespace arpro
 class Sensor
 {
 public:
-    // no constructor
+    // basic constructor
     Sensor(const std::string &_name)
     {
         name_ = _name;
