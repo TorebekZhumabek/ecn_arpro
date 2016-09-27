@@ -1,0 +1,1 @@
+/usr/bin/g++   -g   CMakeFiles/prof.dir/prof.cpp.o  -o prof -rdynamic 

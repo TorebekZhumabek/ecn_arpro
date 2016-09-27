@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="ARPRO" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="edit_cache">
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 edit_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="switchcase">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/switchcase" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 switchcase" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="switchcase/fast">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/switchcase" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 switchcase/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="whileloop">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/whileloop" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 whileloop" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="whileloop/fast">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/whileloop" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 whileloop/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="scope">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/scope" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 scope" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="scope/fast">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/scope" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 scope/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="forloop">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/forloop" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 forloop" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="forloop/fast">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/forloop" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 forloop/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="hello">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/hello" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 hello" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="hello/fast">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/hello" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 hello/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="algo">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/algo" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 algo" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="algo/fast">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/algo" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 algo/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="thr">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/thr" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 thr" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="thr/fast">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/thr" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 thr/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="prof">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/prof" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 prof" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="prof/fast">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/prof" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 prof/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="io">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/io" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 io" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="io/fast">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/io" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 io/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="hanoi">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/hanoi" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 hanoi" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="hanoi/fast">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/hanoi" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 hanoi/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="config">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/config" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 config" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="config/fast">
+         <Option output="/home/olivier/code/Labs/ARPRO/examples/build-debug/config" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/olivier/code/Labs/ARPRO/examples/build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 config/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/olivier/code/Labs/ARPRO/examples/build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/algo.cpp">
+         <Option target="algo"/>
+      </Unit>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/config.cpp">
+         <Option target="config"/>
+      </Unit>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/forloop.cpp">
+         <Option target="forloop"/>
+      </Unit>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/hanoi.cpp">
+         <Option target="hanoi"/>
+      </Unit>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/hello.cpp">
+         <Option target="hello"/>
+      </Unit>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/io.cpp">
+         <Option target="io"/>
+      </Unit>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/prof.cpp">
+         <Option target="prof"/>
+      </Unit>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/scope.cpp">
+         <Option target="scope"/>
+      </Unit>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/switchcase.cpp">
+         <Option target="switchcase"/>
+      </Unit>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/thr.cpp">
+         <Option target="thr"/>
+      </Unit>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/whileloop.cpp">
+         <Option target="whileloop"/>
+      </Unit>
+      <Unit filename="/home/olivier/code/Labs/ARPRO/examples/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

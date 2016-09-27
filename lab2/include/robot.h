@@ -2,31 +2,42 @@
 #define ROBOT_H
 
 #include <vector>
+#include <geom.h>
 
 namespace arpro
 {
 
-struct Point
+class Sensor;
+
+
+struct SensorWithPose
 {
-    double x;
-    double y;
-    Point(double _x=0, double _y=0) {x = _x;y = _y;}
+    Pose pose;
+    Sensor* sensor;
 };
+
 
 class Robot
 {
 public:
     // initialize robot at (x,y,theta)
-    Robot(const std::string &_name, const double &_x, const double &_y, const double &_theta);
+    Robot(std::string _name, double _x, double _y, double _theta);
 
-    // change sampling time
-    inline void setSamplingTime(const double &_dt) {dt_ = _dt;}
+    Pose pose() {return pose_;}
+
+    // attach a sensor
+    void attach(Sensor *_sensor, double x, double y, double theta)
+    {
+        SensorWithPose new_sensor;
+        new_sensor.sensor = _sensor;
+        new_sensor.pose = Pose(x,y,theta);
+        sensors_.push_back(new_sensor);
+    }
     
-    // get the current position in (x,y,theta)
-    void getPosition(double &_x, double &_y, double &_theta) const;
+    void initWheels(double b, double r, double wmax);
     
     // move robot with a given (x,y,theta) velocity
-    void moveXYT(const double &_vx, const double &_vy, const double &_omega);
+    void moveXYT(double _vx, double _vy, double _omega);
 
     // move robot with linear and angular velocities
     void moveVW(double _v, double _omega);
@@ -34,8 +45,11 @@ public:
     // move robot with given wheel velocity
     void rotateWheels(double _left, double _right);
 
-    // try to go to a given (x,y) position
-    void goTo(const Point &_p);
+    // try to go to a given (x,y) position with sensor constraints
+    void goTo(const Pose &_p);
+
+    //try to follow a local frame velocity with sensor constraints
+    void moveWithSensor(Twist _twist);
     
     // prints the current position
     void printPosition();
@@ -50,12 +64,15 @@ public:
 
 protected:
     // position
-    double x_, y_, theta_;
+    Pose pose_;
     std::vector<double> x_history_, y_history_;
     std::string name_;
 
     // sampling time
     double dt_;
+
+    // sensors
+    std::vector<SensorWithPose> sensors_;
 };
 
 }

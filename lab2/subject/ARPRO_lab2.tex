@@ -21,34 +21,29 @@ The simulator is defined by several headers and source files, as defined in \Fig
 \begin{minipage}{.25\linewidth} ~ \end{minipage}
 \begin{minipage}{.5\linewidth}
  \dirtree{%
-.1 lab2. 
+.1 lab2.
+.2 CMakeLists.txt.
 .2 include.
-.3 default.h.
 .3 envir.h.
-.3 matplotlibcpp.h.
+.3 geom.h.
 .3 robot.h.
 .3 sensor.h.
 .2 src.
+.3 envir.cpp.
 .3 main.cpp.
 .3 robot.cpp.
-.2 CMakeLists.txt.
 } 
 \end{minipage}
 %\begin{minipage}{.2\linewidth} ~ \end{minipage}
 \caption{\label{fig:dirtree} Files used by the simulator}
 \end{figure}
 
-The main file is \texttt{main.cpp} and is compiled to an eecutable.\\
+The main file is \texttt{main.cpp} and is compiled to an executable.\\
 The files \texttt{robot.h} and \texttt{robot.cpp} define a \texttt{Robot} class and will be modified in the first lab to implement new methods that allow using the simulator.
 
-The file \texttt{envir.h} defines the \texttt{Environment} structure that describes the environment in which the robot is moving. It uses another structure, a point with attributes \texttt{x} and \texttt{y}. An environment is then defined by a \texttt{std::vector} of points, defining a polygon which is considered as walls.
+The files \texttt{envir.h} and \texttt{envir.cpp} defines the environment in which the robot is moving. These files are not to be modified.
 
-The \texttt{defaults.h} file defines a default environment consisting of a $20\times20m$ square, as shown in \Fig{fig:envir}.
-
-\begin{figure}\centering
-\includegraphics[width=.3\linewidth]{environment}
-\caption{\label{fig:envir} Robot in its environment}
-\end{figure}
+The file \texttt{sensor.h} defines a virtual class \texttt{Sensor} that will be used to create two sensor types: range and bearing sensors.
 
 \subsection{Expected work}
 
@@ -57,103 +52,167 @@ At the end of the lab, please send by email a zip file allowing to compile and t
 
 You may answer the questions by inserting comments in the code at the corresponding lines.
 
+\subsection{Geometry structures}
 
+In the \texttt{geom.h} file are defined two simple geometry structures:
+\begin{itemize}
+ \item One for a 2D pose: \texttt{Pose} with attributes \texttt{x, y, theta}
+ \item One for a 2D motion: \texttt{Pose} with attributes \texttt{vx, vy, w} 
+\end{itemize}Those structures have classical constructors, and also methods to express change of frames.
 
 \newpage
 
+\begin{figure}\centering
+\includegraphics[width=.3\linewidth]{environment}
+\caption{\label{fig:envir} Robot in its environment}
+\end{figure}
+
 \section{Building the \texttt{Robot} class}
+
+The default behavior is the robot following a moving target in the environment. The environment consists of 4 walls defining a 20$\times$20 m square. The target is leaving the square at some point, 
+and for now the robot is also leaving the square as nothing tells it that there are some walls there.
+
+\subsection{Defined methods}
+
+Some methods of the class are already defined:
+\begin{itemize}
+ \item \texttt{Robot(std::string \_name, double \_x, double \_y, double \_theta)}\\
+ constructor, initialize the robot with a given name at a given $(x,y,\theta)$ position
+ \item \texttt{Pose pose()} \\ returns the current pose of the robot
+ \item \texttt{void moveXYT(double \_vx, double \_vy, double \_omega)}\\
+ sends a $(v_x, v_y, \omega)$ velocity to the robot and updates its position
+ \item \texttt{void goTo(const Pose \&\_p)}\\
+ tries to have the robot reach the given Pose
+ \item \texttt{void :moveWithSensor(Twist \_twist)}\\
+ tries to follow a given velocity while ensuring the sensor constraints
+\end{itemize}
+
 
 \subsection{Incomplete methods}
 
 
 \begin{itemize}
-\medskip\item[\textbf{\underline{Q1}}]  Compile and execute the program. According to the \texttt{main.cpp} file, the robot is following some velocity setpoints defined in the $(x,y,\theta)$ space. In which files are the following elements defined:
-\begin{enumerate}
-\item \texttt{DefaultEnvironment}
-\item \texttt{DefaultCartesianSetpoint}
-\item \texttt{Environment}
-\end{enumerate}
+\medskip\item[\textbf{\underline{Q1}}]  Compile and execute the program. According to the \texttt{main.cpp} file, the robot is trying to go to the position of the target. In which files is the target motion defined?
 
-\medskip\item[\textbf{\underline{Q2}}] Explain the signature of   \texttt{DefaultCartesianSetpoint}, especially the way to pass arguments. 
-From the \texttt{main()} function, can \texttt{i} be modified in \texttt{DefaultCartesianSetpoint}? What about \texttt{vx}?
+\medskip\item[\textbf{\underline{Q2}}] Explain the signature of   \texttt{Robot::Robot}, especially the way to pass arguments. 
+From the \texttt{main()} function, can the passed arguments be modified while defining a new robot?
 
 \medskip\item[\textbf{\underline{Q3}}] In practice it is often impossible to control a ground robot by sending $(x,y,\theta)$ velocities. A classical way to control such a robot is to send a setpoint with a linear velocity $v$ and an angular velocity $\omega$, expressed in the robot frame as shown in \Fig{fig:dd}.
 
-
-\begin{figure}[h]\centering
+\begin{figure}[h!]\centering
 \includegraphics[width=.3\linewidth]{wheels}
 \caption{\label{fig:dd} Differential drive model}
 \end{figure}
 
 The corresponding model is quite simple:
-\begin{equation}
+\begin{equation*}
 \left\{\begin{array}{ll}
 \dot x &= v\cos \theta \\
 \dot y &= v\sin \theta \\
 \dot \theta &= \omega
 \end{array}\right.
-\end{equation}
+\end{equation*}
 
-Implement such a function in \texttt{Robot::MoveVW}. This method should compute the $(x,y,\theta)$ velocities from $(v,\omega)$ and then call the \texttt{Robot::MoveXYT} method. 
+Implement such a function in \texttt{Robot::moveVW}. This method should compute the $(x,y,\theta)$ velocities from $(v,\omega)$ and then call the \texttt{Robot::moveXYT} method. 
 
-\medskip\item[\textbf{\underline{Q4}}] Now that a realistic way to control the robot is possible, should the \texttt{Robot::MoveXYT} method stay available for external use? What can we do in the \texttt{robot.h} file to make it impossible to use it from outside the \texttt{Robot} class?
+\medskip\item[\textbf{\underline{Q4}}] Now that a realistic way to control the robot is possible, should the \texttt{Robot::moveXYT} method stay available for external use? What can we do in the \texttt{robot.h} file to make it impossible to use it from outside the \texttt{Robot} class?
+
+\medskip\item[\textbf{\underline{Q5}}] The \texttt{moveWithSensor} method was using the XYT motion, which is actually not possible. 
+Modify it so that it calls the \texttt{moveVW} method. A simple way to change a desired $(\dot x, \dot y, \dot \theta)$ motion
+to a $(v, \omega)$ motion is:
+\begin{equation*}\left\{\begin{array}{ll}
+ v& = \dot x\\
+ \omega &= \alpha\dot y + \dot \theta\end{array}\right.
+\end{equation*}We will use $\alpha = 20$ here.
 
 \medskip\item[\textbf{\underline{Q5}}] When a robot is equipped with two actuated wheels, a simple model is the differential drive model, as shown in \Fig{fig:dd}. Assuming the two wheels have a radius $r$ and are separated with a distance $b$, then the kinematic model yields:
-\begin{equation}\label{eq:dk}
+\begin{equation*}\label{eq:dk}
 \left\{\begin{array}{ll}
 v &= \displaystyle r \frac{\omega_l + \omega_r}{2} \\
 \omega &= \displaystyle r \frac{\omega_l - \omega_r}{2b}
 \end{array}\right.
-\end{equation}As in question 3, implement such a function in the \texttt{Robot::RotateWheels} method, so that it can be possible to control the robot by sending wheel velocities. You may want to define new attributes in the \texttt{Robot} class in order to initialize the radius and base distance through the \texttt{Robot::InitWheel} method. We use the following values:
-\begin{equation}
+\end{equation*}
+We will need to define new attributes in the \texttt{Robot} class in order to initialize the radius and base distance.
+Create also a new method in the \texttt{Robot} class, called \texttt{initWheel}, that does so. In the \texttt{main.cpp}, use the following values:
+\begin{equation*}
 \left\{\begin{array}{ll}
 r &= 0.05 m \\
 b &= 0.3 m
 \end{array}\right.
-\end{equation}
-The method should rely on \texttt{Robot::MoveXYT} after having computed the $(x,y,\theta)$ velocities from $(\omega_l, \omega_r)$.
+\end{equation*}
 
-\medskip\item[\textbf{\underline{Q6}}] By using the \texttt{wheels\_init\_} attribute, make sure that it is impossible to do anything in \texttt{Robot::RotateWheels} if the radius and base have not been initialized.
+\medskip\item[\textbf{\underline{Q6}}] Now that the robot has some wheel radius and inter-distance, implement the \texttt{Robot::rotateWheels} method, so that it can be possible to control the robot by sending wheel velocities. 
+The method should call \texttt{Robot::moveXYT} after having computed the $(x,y,\theta)$ velocities from $(\omega_l, \omega_r)$.
+
+\medskip\item[\textbf{\underline{Q7}}] By using a \texttt{bool wheels\_init\_} attribute, make sure that it is impossible to do anything in \texttt{Robot::rotateWheels} if the radius and base have not been initialized.
 
 
 \subsection{Velocity limits}
 
 With the current simulation, we can control the robot:
 \begin{itemize}
-\item by sending linear and angular velocity setpoint with \texttt{Robot::MoveVW}
-\item or by sending wheel velocities with \texttt{Robot::RotateWheels}
+\item by sending linear and angular velocity setpoint with \texttt{Robot::moveVW}
+\item or by sending wheel velocities with \texttt{Robot::motateWheels}
 \end{itemize}
 
-These two methods call \texttt{Robot::MoveXYT}\footnote{which should not be calable anymore from outside the \texttt{Robot} class} and the robot can reach any velocity. In practice, the wheels have a limited velocity at $\pm$80 round per minute (rpm).
+These two methods call \texttt{Robot::moveXYT}\footnote{which should not be calable anymore from outside the \texttt{Robot} class} and the robot can reach any velocity. In practice, the wheels have a limited velocity at $\pm$10 rad/s.
 
-\medskip\item[\textbf{\underline{Q1}}] Modify the \texttt{Robot::InitWheels} method in order to pass a new argument that defines the wheel angular velocity limit. You may need to define a new attribute of the \texttt{Robot} class to store this limit. Update the \texttt{main.cpp} file with the value in radian per second corresponding to 80 rpm.
+\medskip\item[\textbf{\underline{Q1}}] Modify the \texttt{Robot::initWheels} method in order to pass a new argument that defines the wheel angular velocity limit.
+You may need to define a new attribute of the \texttt{Robot} class to store this limit.
 
-\medskip\item[\textbf{\underline{Q2}}] Modify the \texttt{Robot::RotateWheels} method in order to ensure that the applied velocities $(\omega_l, \omega_r)$ are within the bounds.
+\medskip\item[\textbf{\underline{Q2}}] Modify the \texttt{Robot::rotateWheels} method in order to ensure that the applied velocities $(\omega_l, \omega_r)$ are within the bounds.
 The method should also print a message if the velocity setpoint is too high.
-Note that if you just saturate the velocities, the robot motion will be different. A scaling is a better strategy, in this case we keep the same ratio between $\omega_l$ and $\omega_r$.
+Note that if you just saturate the velocities, the robot motion will be different.
+A scaling is a better strategy, in this case we keep the same ratio between $\omega_l$ and $\omega_r$ according to the following algorithm:
 
-\medskip\item[\textbf{\underline{Q3}}] Although the robot actually moves by having its wheels rotate, it would be easier to be able to send linear and angular velocity setpoints. Modify the 
-\texttt{Robot::MoveVW} method so that a $(v,\omega)$ setpoint is changed to a $(\omega_l,\omega_r)$ setpoint that will then be called through \texttt{Robot::RotateWheels}. Apply the default $(v,\omega)$ trajectory in the simulator. The inverse of model \eqref{eq:dk} yields:
+\def\wl{\omega_l}
+\def\wr{\omega_r}
+\def\wm{\omega_{\text{max}}}
+
+\begin{algorithm}[!h]
+\SetKwComment{Comment}{(}{)}
+% \SetAlgoLined
+\KwData {desired wheel velocities $\wl$, $\wr$, velocity limit $\wm$}
+\KwResult {actual velocities $\wl$, $\wr$}
+$a\gets$ max($|\wl|/\wm$,$|\wr|/\wm$)\;
+\If{$a <$ 1}{$a\gets$1\;}
+\Return $\wl/a$, $\wr/a$\;
+\caption{Scale wheel velocities with maximum value}
+\label{algo:grad}
+\end{algorithm}
+
+
+\medskip\item[\textbf{\underline{Q3}}] Although the robot actually moves by having its wheels rotate, 
+it is more natural to send linear and angular velocity setpoints. Modify the 
+\texttt{Robot::moveVW} method so that a $(v,\omega)$ setpoint is changed to a $(\omega_l,\omega_r)$ setpoint that will then be called through \texttt{Robot::rotateWheels}.
+ The inverse of model \eqref{eq:dk} yields:
 \begin{equation}
 \left\{\begin{array}{ll}
 \omega_l &= \displaystyle \frac{v + b\omega}{r} \\
 \omega_r &= \displaystyle \frac{v - b\omega}{r}
 \end{array}\right.
 \end{equation} 
-
+The corresponding behavior should be that the robot cannot follow perfectly the target anymore, because it is not fast enough.
 \end{itemize}
+
+% \begin{figure}[h!]
+% \includegraphics[width=.4\linewidth]{xyt} \quad \includegraphics[width=.4\linewidth]{vw} 
+%  
+% \end{figure}
 
 
 \section{Sensors}
 
+In this section we will try to avoid the wall by using some range sensors.
+
 The \texttt{sensor.h} files defines a \texttt{Sensor} class that has four methods:
 \begin{itemize}
-\item \texttt{void Init}: initializes the relative pose between the sensor and the robot
-\item \texttt{virtual void Update}: updates the measurement from the robot current position
-\item \texttt{void Print}: prints the current measurement
-\item \texttt{void Plot}: plots the measurement history       
+\item \texttt{Sensor(Robot &_robot, double _x, double _y, double _theta)}: initializes a sensor at a given position on the robot
+\item \texttt{virtual void update(const Pose &_p): updates the measurement from the sensor current position
+\item \texttt{virtual void checkTwist(Twist &_t)}: checks if the given Twist is fine with the current sensor measurement
 \end{itemize}
-The \texttt{Update} method is defined as a pure virtual function, which makes the \texttt{Sensor} class a abstract class. It is thus impossible to declare a variable to be of \texttt{Sensor} type, as this class is only designed to build daughter-classes depending on the sensor type.
+Some of the methods are pure virtual functions, which makes the \texttt{Sensor} class a abstract class.
+It is thus impossible to declare a variable to be of \texttt{Sensor} type, as this class is only designed to build daughter-classes depending on the sensor type.
 
 The \texttt{Robot} class already has a attribute called \texttt{sensors\_} which is a vector of \texttt{Sensor*}. As the \texttt{Sensor} class is abtract it is forbidden to use it by itself, but pointers are still possible.
 
@@ -162,11 +221,12 @@ The \texttt{Robot} class already has a attribute called \texttt{sensors\_} which
 
 
 \begin{itemize}
-\medskip\item[\textbf{\underline{Q1}}] Create a \texttt{sensor\_range.h} file that defines a \texttt{SensorRange} class that is derived from \texttt{Sensor}. The \texttt{Update} method has to be defined so that the code compiles. For now, just make the method print something to the screen.
+\medskip\item[\textbf{\underline{Q1}}] Create a \texttt{sensor\_range.h} file that defines a \texttt{SensorRange} class that is derived from \texttt{Sensor}. The \texttt{update} and \texttt{checkTwist} methods have to be defined so that the code compiles. For now, just make the method print something to the screen.
 
-\medskip\item[\textbf{\underline{Q2}}] Include this file in \texttt{main.cpp} and declare a \texttt{SensorRange} variable.  We will use a front range sensor placed at $(0.1, 0,0)$ in the robot frame. Call the \texttt{Update} method at the beginning of the \texttt{for} loop. Run the program and ensure that the sensor is updated.
+\medskip\item[\textbf{\underline{Q2}}] Include this file in \texttt{main.cpp} and declare a \texttt{SensorRange} variable.  We will use a front range sensor placed at $(0.1, 0,0)$ in the robot frame. The robot should already update all its sensors, so make sure what is printed in the \texttt{update} method is actually displayed.
 
-\medskip\item[\textbf{\underline{Q3}}] In this question we will build the \texttt{Update} function. This sensor should return the distance to the first wall in its x-axis. The sensor can thus be simulated in two steps:
+\medskip\item[\textbf{\underline{Q3}}] In this question we will build the \texttt{update} function.
+This sensor should return the distance to the first wall in its x-axis. The sensor can thus be simulated in two steps:
 \begin{enumerate}
 \item Compute the absolute position and orientation of the sensor. As the robot is passed to the \texttt{Update} method, we can use its own $(x_r,y_r,\theta_r)$ position and the relative position $(x_s,y_s,\theta_s)$ of the sensor to get the absolute sensor position:
 \begin{equation}

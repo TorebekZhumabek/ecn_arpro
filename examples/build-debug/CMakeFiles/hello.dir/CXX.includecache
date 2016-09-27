@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/olivier/code/Labs/ARPRO/examples/hello.cpp
+iostream
+-
+string
+-
+vector
+-
+time.h
+-
+math.h
+-
+

@@ -1,16 +1,21 @@
+
+
 #include <iostream>
 #include <math.h>
-
 #include <robot.h>
+#include <sensor.h>
 
 using namespace arpro;
 using namespace std;
 
-Robot::Robot(const std::string &_name, const double &_x, const double &_y, const double &_theta)
-{
-    x_ = _x;
-    y_ = _y;
-    theta_ = _theta;
+Environment* Sensor::envir_ = NULL;
+
+
+Robot::Robot(string _name, double _x, double _y, double _theta)
+{    
+    pose_.x = _x;
+    pose_.y = _y;
+    pose_.theta = _theta;
 
     name_ = _name;
 
@@ -23,31 +28,23 @@ Robot::Robot(const std::string &_name, const double &_x, const double &_y, const
 }
 
 
-void Robot::getPosition(double &_x, double &_y, double &_theta) const
-{
-    // to fill up
-
-    
-}
-
-
-void Robot::moveXYT(const double &_vx, const double &_vy, const double &_omega)
+void Robot::moveXYT(double _vx, double _vy, double _omega)
 {
     // update position
-    x_ += _vx*dt_;
-    y_ += _vy*dt_;
-    theta_ += _omega*dt_;
+    pose_.x += _vx*dt_;
+    pose_.y += _vy*dt_;
+    pose_.theta += _omega*dt_;
 
     // store position history
-    x_history_.push_back(x_);
-    y_history_.push_back(y_);
+    x_history_.push_back(pose_.x);
+    y_history_.push_back(pose_.y);
 }
+
 
 
 void Robot::rotateWheels(double _left, double _right)
 {
     // to fill up after defining an initWheel method
-
 }
 
 
@@ -55,24 +52,42 @@ void Robot::rotateWheels(double _left, double _right)
 void Robot::moveVW(double _v, double _omega)
 {
     // to fill up
+
 }
 
 
+
+
 // try to go to a given x-y position
-void Robot::goTo(const Point &_p)
+void Robot::goTo(const Pose &_p)
 {
-    // desired motion
-    double vx = -0.5*(x_-_p.x),
-           vy = -0.5*(y_-_p.y);
+    // error in robot frame
+    Pose error = _p.transformInverse(pose_);
 
-    // uses X-Y motion (impossible in practice)
-    moveXYT(vx, vy,0);
+    // try to do a straight line with sensor constraints
+    moveWithSensor(Twist(error.x, error.y, 0));
+}
 
+
+void Robot::moveWithSensor(Twist _twist)
+{
+    // go through all sensors to see if the robot twist is fine with them
+    for(auto & sensor: sensors_)
+    {
+        sensor.sensor->update(sensor.pose.transformDirect(pose_));
+        sensor.sensor->checkRobotTwist(_twist, sensor.pose);
+    }
+
+    // uses X-Y motion (perfect but impossible in practice)
+    moveXYT(_twist.vx, _twist.vy,_twist.w);
+
+    // uses v-omega motion with wheel limits
+    //moveVW(_twist.vx,20*_twist.vy + _twist.w);
 }
 
 
 void Robot::printPosition()
 {
-    cout << "Current position: " << x_<< ", " << y_ << endl;
+    cout << "Current position: " << pose_.x << ", " << pose_.y << endl;
 }
 

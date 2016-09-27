@@ -1,9 +1,9 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#include <envir.h>
 #include <string>
-#include <matplotlibcpp.h>
+#include <envir.h>
+#include <robot.h>
 
 namespace arpro
 {
@@ -12,52 +12,59 @@ class Sensor
 {
 public:
     // basic constructor
-    Sensor(const std::string &_name)
+    Sensor(Robot &_robot, double _x, double _y, double _theta)
     {
-        name_ = _name;
-    }
-
-    // attach to a robot
-    void attach(Robot &_robot, const double &_x, const double &_y, const double &_theta)
-    {
-        robot_ = &_robot;
-        x_ = _x;
-        y_ = _y;
-        theta_ = _theta;
-
+        s_ = 0;
         s_history_.clear();
+        robot_ = &_robot;
+        _robot.attach(this, _x, _y, _theta);
     }
 
-    // update from environment
-    virtual void update(const Environment &_envir) = 0;
+    inline static void setEnvironment(Environment &_envir) {envir_ = &_envir;}
 
-    // print current measurement
-    inline void print() {std::cout << name_ << ": " << s_ << std::endl;}
+    // update from current sensor pose
+    virtual void update(const Pose &_p) = 0;
 
-    // plot history
-    inline void plot()
+    // check twist in sensor frame
+    virtual void checkTwist(Twist &_t) {}
+
+    // check twist in robot frame
+    void checkRobotTwist(Twist &_t, const Pose &_p)
     {
-        std::vector<double> x(s_history_.size());
-        for(unsigned int i=0;i<s_history_.size();++i)
-            x[i] = i;
-        matplotlibcpp::named_plot(name_, x, s_history_, "b");
-        matplotlibcpp::show();
+        bool display_twist = false;
+
+        if(display_twist)
+            std::cout << " Checking new sensor" << std::endl;
+        if(display_twist)
+            std::cout << "     Base robot twist: " << _t << std::endl;
+        // twist in sensor frame
+        _t = _t.transformInverse(_p);
+        if(display_twist)
+            std::cout << "     Base sensor twist: " << _t << std::endl;
+
+        // check twist in sensor frame
+        checkTwist(_t);
+
+        if(display_twist)
+            std::cout << "     Corrected sensor twist: " << _t << std::endl;
+
+        // back to robot frame
+        _t = _t.transformDirect(_p);
+        if(display_twist)
+            std::cout << "     Corrected robot twist: " << _t << std::endl;
     }
 
     // read current measurement
     double read() {return s_;}
 
+
 protected:
-    // sensor position in robot frame
-    double x_, y_, theta_;
-    // robot on which the sensor is attached
-    Robot* robot_;
-    // sensor name
-    std::string name_;
     // current measurement
     double s_;
     // measurement history
     std::vector<double> s_history_;
+    static Environment* envir_;
+    Robot* robot_;
 };
 
 }

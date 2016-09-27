@@ -1,0 +1,1 @@
+/usr/bin/g++   -g   CMakeFiles/whileloop.dir/whileloop.cpp.o  -o whileloop -rdynamic 

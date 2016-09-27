@@ -1,3 +1,7 @@
+#ifndef MATPLOTLIBCPP_H
+#define MATPLOTLIBCPP_H
+
+
 #pragma once
 
 #include <vector>
@@ -409,3 +413,5 @@ namespace matplotlibcpp {
 
 
 }
+
+#endif
