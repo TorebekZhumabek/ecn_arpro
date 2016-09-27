@@ -1,1 +1,0 @@
-/usr/bin/g++   -g   CMakeFiles/forloop.dir/forloop.cpp.o  -o forloop -rdynamic 
