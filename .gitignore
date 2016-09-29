@@ -10,6 +10,7 @@
 *.so
 *.pyc
 build/
+build-debug/
 devel/
 bin/
 install/
@@ -49,7 +50,6 @@ Thumbs.db
 # TEX files #
 ######################
 *~
-*.backup
 *.syntex*
 *.aux
 *.log

@@ -1,1 +1,0 @@
-/usr/bin/g++   -g   CMakeFiles/switchcase.dir/switchcase.cpp.o  -o switchcase -rdynamic 

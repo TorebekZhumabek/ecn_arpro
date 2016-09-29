@@ -1,1 +1,0 @@
-/usr/bin/g++   -g   CMakeFiles/config.dir/config.cpp.o  -o config -rdynamic -lyaml-cpp 
