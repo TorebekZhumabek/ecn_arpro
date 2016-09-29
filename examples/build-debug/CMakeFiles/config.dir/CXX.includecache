@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/olivier/code/Labs/ARPRO/examples/config.cpp
+iostream
+-
+fstream
+-
+stdlib.h
+-
+yaml-cpp/yaml.h
+-
+yaml-cpp/parser.h
+-
+

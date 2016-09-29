@@ -18,24 +18,35 @@ protected:
 
 
 
+
 int main()
 {
 
+
+
+
+
+
     // random vector of int's
-    vector<int> v_int(10);
-    for_each(v_int.begin(),v_int.end(),[](int &i){i = rand()%100;});
-    for(auto &i: v_int)
+    vector<int> whatever(10);
+
+    for(auto &i: whatever)
+        i = rand() % 100;
+
+  //  for_each(whatever.begin(),whatever.end(),[](int &i){i = rand()%100;});
+
+    for(auto &i: whatever)
         cout << i << " ";
     cout << endl;
 
     // sort with classical < comparison
-    sort(v_int.begin(),v_int.end());
-    for(auto &i: v_int)
+    sort(whatever.begin(),whatever.end());
+
+    for(auto &i: whatever)
         cout << i << " ";
     cout << endl;
 
-
-
+/*
     // random vector of MyObj
     vector<MyObj> v_obj(10);
     for(auto &o: v_obj)
@@ -55,7 +66,7 @@ int main()
         cout << o.value() << " ";
     cout << endl;
 
-
+*/
 
 
 

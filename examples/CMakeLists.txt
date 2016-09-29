@@ -5,6 +5,7 @@ project (ARPRO)
 add_compile_options(-std=c++11)
 add_compile_options(-pthread)
 
+
 find_package (Threads)
 find_package(PkgConfig)
 pkg_check_modules(YamlCpp yaml-cpp)
@@ -21,6 +22,7 @@ add_executable(prof prof.cpp)
 
 add_executable(hanoi hanoi.cpp)
 add_executable(algo algo.cpp)
+add_executable(inheritance inheritance.cpp)
 
 add_executable(config config.cpp)
 target_link_libraries(config yaml-cpp)
