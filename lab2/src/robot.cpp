@@ -10,7 +10,6 @@ using namespace std;
 
 Environment* Sensor::envir_ = NULL;
 
-
 Robot::Robot(string _name, double _x, double _y, double _theta)
 {    
     pose_.x = _x;

@@ -49,14 +49,15 @@ struct Twist
     {
         const double c = cos(_transform.theta);
         const double s = sin(_transform.theta);
-        return Twist(vx*c-vy*s, vx*s+vy*c, w);
+        return Twist(vx*c-vy*s+_transform.y*w, vx*s+vy*c-_transform.x*w, w);
     } const
 
     Twist transformInverse(Pose _transform)
     {
         const double c = cos(_transform.theta);
         const double s = sin(_transform.theta);
-        return Twist(vx*c+vy*s, -vx*s+vy*c,w);
+        return Twist((vx-_transform.y)*c+(vy+_transform.x*w)*s,
+                     -(vx-_transform.y)*s+(vy+_transform.x*w)*c,w);
     } const
 
     Twist operator+(const Twist &_other)
