@@ -7,7 +7,7 @@
 
 \inserttitle{Advanced Robot Programming  Labs \newline C++ Programming}
 
-\insertsubtitle{Lab 2: Using classes}
+\insertsubtitle{Lab 2: Mobile robot with sensors}
 
 
 \section{Content of this lab}
@@ -57,8 +57,15 @@ You may answer the questions by inserting comments in the code at the correspond
 In the \texttt{geom.h} file are defined two simple geometry structures:
 \begin{itemize}
  \item One for a 2D pose: \texttt{Pose} with attributes \texttt{x, y, theta}
- \item One for a 2D motion: \texttt{Twist} with attributes \texttt{vx, vy, w} 
-\end{itemize}Those structures have classical constructors, and also methods to express change of frames.
+ \item One for a 2D motion: \texttt{Twist} with attributes \texttt{vx, vy, wz} 
+\end{itemize}Those structures have classical constructors, and also methods to express change of frames:
+\begin{itemize}
+ \item \texttt{Pose Pose::transformDirect(Pose \_transform)} \\returns the pose  expressed in the given transform
+ \item \texttt{Pose Pose::transformInverse(Pose \_transform)}\\ returns the pose expressed in the given transform inverse
+ \item \texttt{Twist Twist::transformDirect(Pose \_transform)} \\returns the twist expressed in the given transform
+ \item \texttt{Twist Twist::transformInverse(Pose \_transform)}\\ returns the twist expressed in the given transform inverse
+ \end{itemize}
+
 
 \newpage
 
@@ -83,8 +90,6 @@ Some methods of the class are already defined:
  sends a $(v_x, v_y, \omega)$ velocity to the robot and updates its position
  \item \texttt{void goTo(const Pose \&\_p)}\\
  tries to have the robot reach the given Pose
- \item \texttt{void :moveWithSensor(Twist \_twist)}\\
- tries to follow a given velocity while ensuring the sensor constraints
 \end{itemize}
 
 
@@ -117,7 +122,7 @@ Implement such a function in \texttt{Robot::moveVW}. This method should compute 
 
 \medskip\item[\textbf{\underline{Q4}}] Now that a realistic way to control the robot is possible, should the \texttt{Robot::moveXYT} method stay available for external use? What can we do in the \texttt{robot.h} file to make it impossible to use it from outside the \texttt{Robot} class?
 
-\medskip\item[\textbf{\underline{Q5}}] The \texttt{moveWithSensor} method was using the XYT motion, which is actually not possible. 
+\medskip\item[\textbf{\underline{Q5}}] The \texttt{moveWithSensor} method was using the XYT motion, which is not realistic. 
 Modify it so that it calls the \texttt{moveVW} method. A simple way to change a desired $(\dot x, \dot y, \dot \theta)$ motion
 to a $(v, \omega)$ motion is:
 \begin{equation*}\left\{\begin{array}{ll}
@@ -145,7 +150,6 @@ b &= 0.3 m
 The method should call \texttt{Robot::moveXYT} after having computed the $(x,y,\theta)$ velocities from $(\omega_l, \omega_r)$.
 
 \medskip\item[\textbf{\underline{Q7}}] By using a \texttt{bool wheels\_init\_} attribute, make sure that it is impossible to do anything in \texttt{Robot::rotateWheels} if the radius and base have not been initialized.
-
 
 \subsection{Velocity limits}
 
@@ -207,7 +211,7 @@ In this section we will try to avoid the wall by using some range sensors.
 
 The \texttt{sensor.h} files defines a \texttt{Sensor} class that has four methods:
 \begin{itemize}
-\item \texttt{Sensor(Robot \&\_robot, double \_x, double \_y, double \_theta)}\\initializes a sensor at a given position on the robot
+\item \texttt{Sensor(Robot \&\_robot, double \_x, double \_y, double \_theta)}\\initializes a sensor at a given position on the given robot
 \item \texttt{virtual void update(const Pose \&\_p)}\\ updates the measurement from the sensor current position
 \item \texttt{virtual void checkTwist(Twist \&\_t)}\\ checks if the given Twist is fine with the current sensor measurement
 \end{itemize}
@@ -254,10 +258,26 @@ for(int i=0;i<envir_->walls.size();++i)
 \end{lstlisting}
 \end{center}
 
+Define the \texttt{update} function so that it updates the attribute \texttt{s\_} of the sensor with the distance to the nearest wall. Make it also print the distance to see if it is fine.
 
-Define the \texttt{Update} function so that it updates the attribute \texttt{s} of the sensor with the distance to the nearest wall. 
+\medskip\item[\textbf{\underline{Q4}}] In the \texttt{Robot::moveWithSensor} method we currently do not take into account the sensor measurement. 
+Before calling \texttt{moveVW} we should loop through all the sensors of the robot and call their \texttt{update} method.
 
-\medskip\item[\textbf{\underline{Q4}}] At the end of the \texttt{Update} method, add the command to append the measurement history: \\\texttt{s\_history\_.push\_back(s\_);}\\
-At the end of the program call the \texttt{Plot} method of the range sensor in order to display the measurements.
+\medskip\item[\textbf{\underline{Q5}}] We now want the sensor to be able to modify the robot twist to prevent any collisions, which is the goal of the \texttt{checkTwist} method.
+We assume the \texttt{Twist} that is passed to this method is already expressed in the sensor frame. Hence we are only interested in the \texttt{vx} attribute and do not want it to be too large (fast motion in the sensor axis) if we are near to a wall.\\
+A simple way to do so is to define a minimum security range and to impose an upper bound to the velocity:
+\begin{algorithm}[!h]
+\SetKwComment{Comment}{(}{)}
+% \SetAlgoLined
+\KwData {Current twist $T$, current range $s$, gain $g$, minimum range $sm$}
+\KwResult {Modified twist $T$}
+\If{$T.vx > g*(s-sm)$}{$T.vx \gets g*(s-sm)$\;}
+\Return $T$
+\caption{Modify the given twist to avoid collisions}
+\label{algo:range}
+\end{algorithm}
+
+\medskip\item[\textbf{\underline{Q5}}] Modify the \texttt{Robot::moveWithSensor} method so that we also check the current robot twist. The robot should then stay inside the walls.
+\medskip\item[\textbf{\underline{Q6}}] Add some other range sensors to the robot to check if everything is going fine.
 \end{itemize}
 \end{document}

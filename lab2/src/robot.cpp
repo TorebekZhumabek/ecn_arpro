@@ -70,18 +70,13 @@ void Robot::goTo(const Pose &_p)
 
 void Robot::moveWithSensor(Twist _twist)
 {
-    // go through all sensors to see if the robot twist is fine with them
-    for(auto & sensor: sensors_)
-    {
-        sensor.sensor->update(sensor.pose.transformDirect(pose_));
-        sensor.sensor->checkRobotTwist(_twist, sensor.pose);
-    }
+    // to fill up, sensor measurement and twist checking
+
 
     // uses X-Y motion (perfect but impossible in practice)
     moveXYT(_twist.vx, _twist.vy,_twist.w);
 
-    // uses v-omega motion with wheel limits
-    //moveVW(_twist.vx,20*_twist.vy + _twist.w);
+    // to fill up, use V-W motion when defined
 }
 
 
