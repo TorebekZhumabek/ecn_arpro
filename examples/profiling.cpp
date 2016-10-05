@@ -9,7 +9,6 @@ void init(vector<int> &_v)
 {    
     for(unsigned int i=0;i<_v.size();++i)
         _v[i] = std::rand()%256;
-
 }
 
 int loop_index(vector<int> &_v)

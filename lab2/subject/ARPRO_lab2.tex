@@ -74,6 +74,7 @@ In the \texttt{geom.h} file are defined two simple geometry structures:
 \caption{\label{fig:envir} Robot in its environment}
 \end{figure}
 
+
 \section{Building the \texttt{Robot} class}
 
 The default behavior is the robot following a moving target in the environment. The environment consists of 4 walls defining a 20$\times$20 m square. The target is leaving the square at some point, 
@@ -141,8 +142,8 @@ We will need to define new attributes in the \texttt{Robot} class in order to in
 Create also a new method in the \texttt{Robot} class, called \texttt{initWheel}, that does so. In the \texttt{main.cpp}, use the following values:
 \begin{equation*}
 \left\{\begin{array}{ll}
-r &= 0.05 m \\
-b &= 0.3 m
+r &= 0.1 ~m \\
+b &= 0.3 ~m
 \end{array}\right.
 \end{equation*}
 
@@ -203,13 +204,13 @@ The corresponding behavior should be that the robot cannot follow perfectly the 
 % \includegraphics[width=.4\linewidth]{xyt} \quad \includegraphics[width=.4\linewidth]{vw} 
 %  
 % \end{figure}
-
+\newpage
 
 \section{Sensors}
 
-In this section we will try to avoid the wall by using some range sensors.
+In this section we will try to avoid the walls by using some range sensors.
 
-The \texttt{sensor.h} files defines a \texttt{Sensor} class that has four methods:
+The \texttt{sensor.h} files defines a \texttt{Sensor} class that has the following methods:
 \begin{itemize}
 \item \texttt{Sensor(Robot \&\_robot, double \_x, double \_y, double \_theta)}\\initializes a sensor at a given position on the given robot
 \item \texttt{virtual void update(const Pose \&\_p)}\\ updates the measurement from the sensor current position
@@ -221,20 +222,23 @@ It is thus impossible to declare a variable to be of \texttt{Sensor} type, as th
 The \texttt{Robot} class already has a attribute called \texttt{sensors\_} which is a vector of \texttt{Sensor*}. As the \texttt{Sensor} class is abtract it is forbidden to use it by itself, but pointers are still possible.
 
 
-\subsection{Range sensors}
+\subsection{Range sensor}
 
 
 \begin{itemize}
 \medskip\item[\textbf{\underline{Q1}}] Create a \texttt{sensor\_range.h} file that defines a \texttt{SensorRange} class that is derived from \texttt{Sensor}. The \texttt{update} and \texttt{checkTwist} methods have to be defined so that the code compiles. For now, just make the methods print something to the screen.
 
-\medskip\item[\textbf{\underline{Q2}}] Include this file in \texttt{main.cpp} and declare a \texttt{SensorRange} variable.  We will use a front range sensor placed at $(0.1, 0,0)$ in the robot frame. The robot should already update all its sensors, so make sure what is printed in the \texttt{update} method is actually displayed.
+\medskip\item[\textbf{\underline{Q2}}] Include this file in \texttt{main.cpp} and declare a \texttt{SensorRange} variable.  We will use a front range sensor placed at $(0.1, 0,0)$ in the robot frame.
 
-\medskip\item[\textbf{\underline{Q3}}] In this question we will build the \texttt{update} function of the range sensor.
+\medskip\item[\textbf{\underline{Q3}}] In the \texttt{Robot::moveWithSensor} method we currently do not take into account the sensor measurement. 
+Before calling \texttt{moveVW} we should loop through all the sensors of the robot and call their \texttt{update} method.
+
+\medskip\item[\textbf{\underline{Q4}}] In this question we will build the \texttt{update} function of the range sensor.
 This sensor should compute the distance to the nearest wall in the direction of the x-axis.\\
 
 In the \texttt{envir\_} attribute of the sensor class, the walls are defined by a list of points available in \texttt{envir\_->walls}. \Fig{fig:dist} shows a configuration where the sensor is at $(x,y,\theta)$ and is facing a wall defined by $(x_1,y_1)$ and $(x_2,y_2)$.
 \begin{figure}[h]\centering
-\includegraphics[width=.4\linewidth]{sensor}
+\includegraphics[width=.3\linewidth]{sensor}
 \caption{Distance to a segment defined by two points.}
 \label{fig:dist}
 \end{figure}
@@ -260,24 +264,84 @@ for(int i=0;i<envir_->walls.size();++i)
 
 Define the \texttt{update} function so that it updates the attribute \texttt{s\_} of the sensor with the distance to the nearest wall. Make it also print the distance to see if it is fine.
 
-\medskip\item[\textbf{\underline{Q4}}] In the \texttt{Robot::moveWithSensor} method we currently do not take into account the sensor measurement. 
-Before calling \texttt{moveVW} we should loop through all the sensors of the robot and call their \texttt{update} method.
-
 \medskip\item[\textbf{\underline{Q5}}] We now want the sensor to be able to modify the robot twist to prevent any collisions, which is the goal of the \texttt{checkTwist} method.
 We assume the \texttt{Twist} that is passed to this method is already expressed in the sensor frame. Hence we are only interested in the \texttt{vx} attribute and do not want it to be too large (fast motion in the sensor axis) if we are near to a wall.\\
 A simple way to do so is to define a minimum security range and to impose an upper bound to the velocity:
+
+\medskip\item[\textbf{\underline{Q6}}] Modify the \texttt{Robot::moveWithSensor} method so that we also check the current robot twist. The robot should then stay inside the walls. We will use the following parameters:
+\begin{equation*}
+\left\{\begin{array}{ll}
+g &= .1 \\
+s_m &= 0.1~ m
+\end{array}\right.
+\end{equation*}
+
 \begin{algorithm}[!h]
 \SetKwComment{Comment}{(}{)}
 % \SetAlgoLined
-\KwData {Current twist $T$, current range $s$, gain $g$, minimum range $sm$}
+\KwData {Current twist $T$, current range $s$, gain $g$, minimum range $s_m$}
 \KwResult {Modified twist $T$}
-\If{$T.vx > g*(s-sm)$}{$T.vx \gets g*(s-sm)$\;}
+\If{$T.vx > g*(s-s_m)$}{$T.vx \gets g*(s-s_m)$\;}
 \Return $T$
 \caption{Modify the given twist to avoid collisions}
 \label{algo:range}
 \end{algorithm}
-
-\medskip\item[\textbf{\underline{Q5}}] Modify the \texttt{Robot::moveWithSensor} method so that we also check the current robot twist. The robot should then stay inside the walls.
-\medskip\item[\textbf{\underline{Q6}}] Add some other range sensors to the robot to check if everything is going fine.
+\medskip\item[\textbf{\underline{Q7}}] Add some other range sensors to the robot to check if everything is going fine.
 \end{itemize}
+
+
+
+\newpage
+
+\subsection{Bearing sensor}
+
+In this section we will create a new kind of sensor, that returns the bearing angle to the other robot in the simulation.
+Define first a new robot with smaller wheels (0.05 m). \\
+In the main loop, we just want this robot to go forward at 0.4 m/s: \\\texttt{robot2.moveWithConstraints(Twist(0.4,0,0));}\\
+Of course it will go out of the wall for now.
+
+\begin{itemize}
+\medskip\item[\textbf{\underline{Q1}}] Create a \texttt{sensor\_bearing.h} file that defines a \texttt{SensorBearing} class that is derived from \texttt{Sensor}. The \texttt{update} and \texttt{checkTwist} methods have to be defined so that the code compiles. For now, just make the methods print something to the screen.
+
+\medskip\item[\textbf{\underline{Q2}}] Include this file in \texttt{main.cpp} and declare a \texttt{SensorBearing} variable.  We will use a front bearing sensor placed at $(0.1, 0,0)$ in the second robot frame.
+
+\medskip\item[\textbf{\underline{Q3}}] Here we build the \texttt{update} method. The sensor measurement should be the angle under which the sensor is detecting another robot. 
+We have to loop through all the robots of the environment, which can be done with this loop:
+\begin{center}\cppstyle
+\begin{lstlisting}
+// look for first other robot
+    for(auto other: envir_->robots_)
+	if(other != robot_)
+	{
+	    // compute angle between sensor and detected robot
+	    
+	    break;
+	}
+    // set angle back to [-pi,pi]
+\end{lstlisting}
+\end{center}
+The angle between the sensor and the robot can be computed with:
+\begin{equation*}
+ \alpha = \text{arctan2}(y_s - y_r, x_s-x_r) - \theta_s
+\end{equation*}where $(x_s,y_s,\theta_s)$ is the sensor pose and $(x_r,y_r)$ is the robot position.
+
+\medskip\item[\textbf{\underline{Q4}}] We now build the \texttt{checkTwist} method. The bearing sensor should try to align with its target. To do so, we just want to change the rotation velocity:
+\begin{algorithm}[!h]
+\SetKwComment{Comment}{(}{)}
+% \SetAlgoLined
+\KwData {Current twist $T$, current bearing $s$, gain $g$}
+\KwResult {Modified twist $T$}
+$T.wz \gets T.wz - g\times s$\;
+\Return $T$
+\caption{Modify the given twist to avoid collisions}
+\label{algo:bearing}
+\end{algorithm}
+
+We use this method with the following parameters: $g = 0.5$.
+
+
+\medskip\item[\textbf{\underline{Q5}}] Check that the second robot now follows the first robot, just by using its bearing sensor. 
+
+\end{itemize}
+
 \end{document}

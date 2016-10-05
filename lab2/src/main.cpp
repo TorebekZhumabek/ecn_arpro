@@ -23,17 +23,6 @@ int main()
     Robot robot("R2D2", 0,0,0);    
     envir.addRobot(robot);
 
-    // add range sensors
-    RangeSensor sensor1(robot, .1,0,0),
-                sensor2(robot, 0,0,-M_PI/2);
-
-
-    Robot robot2("C3PO", 2,3,-M_PI);
-    robot2.initWheels(0.3, 0.05, 10);
-    BearingSensor bear(robot2, .1,0,0);
-    envir.addRobot(robot2);
-
-
 
 
 
@@ -48,8 +37,6 @@ int main()
         // try to follow target
         robot.goTo(envir.target);
 
-        //robot2.goTo(robot.pose());
-        robot2.moveWithSensor(Twist(1,0,0));
     }
 
     // plot trajectory

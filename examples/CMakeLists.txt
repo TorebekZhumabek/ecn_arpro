@@ -10,7 +10,7 @@ find_package (Threads)
 find_package(PkgConfig)
 pkg_check_modules(YamlCpp yaml-cpp)
 
-include_directories(${YamlCpp_INCLUDE_DIRS})
+include_directories(. ${YamlCpp_INCLUDE_DIRS})
 
 add_executable(hello hello.cpp)
 add_executable(forloop forloop.cpp)
@@ -20,7 +20,6 @@ add_executable(io io.cpp)
 add_executable(scope scope.cpp)
 add_executable(profiling profiling.cpp)
 add_executable(debug debug.cpp)
-
 add_executable(hanoi hanoi.cpp)
 add_executable(algo algo.cpp)
 add_executable(inheritance inheritance.cpp)
