@@ -24,9 +24,6 @@ int main()
     envir.addRobot(robot);
 
 
-
-
-
     for(unsigned int i=0;i<10000;++i)
     {
         cout << "---------------------" << endl;
