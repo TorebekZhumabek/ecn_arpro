@@ -47,7 +47,10 @@ The file \texttt{sensor.h} defines a virtual class \texttt{Sensor} that will be 
 
 \subsection{If you do the lab on your own computer}
 
-You will have to install two Ubuntu packages that are used for the plotting of the robot trajectory:\\
+You of course have to install QtCreator and CMake:\\
+\texttt{sudo apt-get install cmake qtcreator} \\
+
+You will also have to install two Ubuntu packages that are used for the plotting of the robot trajectory:\\
 \texttt{sudo apt-get install python-matplotlib} \\ 
 \texttt{sudo apt-get install libpython2.7-dev} 
 
@@ -225,7 +228,31 @@ The \texttt{sensor.h} files defines a \texttt{Sensor} class that has the followi
 Some of the methods are pure virtual functions, which makes the \texttt{Sensor} class a abstract class.
 It is thus impossible to declare a variable to be of \texttt{Sensor} type, as this class is only designed to build daughter-classes depending on the sensor type.
 
-The \texttt{Robot} class already has a attribute called \texttt{sensors\_} which is a vector of \texttt{Sensor*}. As the \texttt{Sensor} class is abtract it is forbidden to use it by itself, but pointers are still possible.
+The \texttt{Robot} class already has a attribute called \texttt{sensors\_} which is a vector of \texttt{SensorWithPose}. A \texttt{SensorWithPose} is a simple structure that stores:
+\begin{itemize}
+ \item a \texttt{Pose} called pose
+ \item a \texttt{Sensor*} called sensor. As the \texttt{Sensor} class is abtract it is forbidden to use it by itself, but pointers are still possible.
+\end{itemize}
+
+For example to print the pose corresponding to all \texttt{SensorWithPose}, we can write this inside a \texttt{Robot} method:
+\begin{center}\cppstyle
+\begin{lstlisting}
+    for(auto & sensor: sensors_)
+	cout << sensor.pose << endl;
+\end{lstlisting}
+\end{center}
+Similarly, to update all sensors with a given pose \texttt{p}, we can write the following:
+\begin{center}\cppstyle
+\begin{lstlisting}
+    Pose p;
+    for(auto & sensor: sensors_)
+	sensor.sensor->update(p);
+\end{lstlisting}
+\end{center}The arrow is because we use a pointer and not an actual value. The corresponding methods have thus to be 
+called with an arrow instead of a dot.
+
+
+
 
 
 \subsection{Range sensor}
