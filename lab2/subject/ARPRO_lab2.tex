@@ -254,7 +254,7 @@ called with an arrow instead of a dot.
 \medskip\item[\textbf{\underline{Q2}}] Include this file in \texttt{main.cpp} and declare a \texttt{SensorRange} variable.  We will use a front range sensor placed at $(0.1, 0,0)$ in the robot frame.
 
 \medskip\item[\textbf{\underline{Q3}}] In the \texttt{Robot::moveWithSensor} method we currently do not take into account the sensor measurement. 
-Before calling \texttt{moveVW} we should loop through all the sensors of the robot and call their \texttt{update} method.
+Before calling \texttt{moveVW} we should loop through all the sensors of the robot and call their \texttt{updateFromRobotPose} method.
 
 \medskip\item[\textbf{\underline{Q4}}] In this question we will build the \texttt{update} function of the range sensor.
 This sensor should compute the distance to the nearest wall in the direction of the x-axis.\\
@@ -291,7 +291,7 @@ Define the \texttt{update} function so that it updates the attribute \texttt{s\_
 We assume the \texttt{Twist} that is passed to this method is already expressed in the sensor frame. Hence we are only interested in the \texttt{vx} attribute and do not want it to be too large (fast motion in the sensor axis) if we are near to a wall.\\
 A simple way to do so is to define a minimum security range and to impose an upper bound to the velocity:
 
-\medskip\item[\textbf{\underline{Q6}}] Modify the \texttt{Robot::moveWithSensor} method so that we also check the current robot twist. The robot should then stay inside the walls. We will use the following parameters:
+\medskip\item[\textbf{\underline{Q6}}] Modify the \texttt{Robot::moveWithSensor} method so that we also check the current robot twist by calling the \texttt{checkRobotTwist} method for all sensors. The robot should then stay inside the walls. We will use the following parameters:
 \begin{equation*}
 \left\{\begin{array}{ll}
 g &= .1 \\
