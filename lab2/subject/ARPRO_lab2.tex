@@ -66,7 +66,7 @@ You may answer the questions by inserting comments in the code at the correspond
 In the \texttt{geom.h} file are defined two simple geometry structures:
 \begin{itemize}
  \item One for a 2D pose: \texttt{Pose} with attributes \texttt{x, y, theta}
- \item One for a 2D motion: \texttt{Twist} with attributes \texttt{vx, vy, wz} 
+ \item One for a 2D motion: \texttt{Twist} with attributes \texttt{vx, vy, w} 
 \end{itemize}Those structures have classical constructors, and also methods to express change of frames:
 \begin{itemize}
  \item \texttt{Pose Pose::transformDirect(Pose \_transform)} \\returns the pose  expressed in the given transform
@@ -224,29 +224,19 @@ The \texttt{sensor.h} files defines a \texttt{Sensor} class that has the followi
 \item \texttt{Sensor(Robot \&\_robot, double \_x, double \_y, double \_theta)}\\initializes a sensor at a given position on the given robot
 \item \texttt{virtual void update(const Pose \&\_p)}\\ updates the measurement from the sensor current position
 \item \texttt{virtual void checkTwist(Twist \&\_t)}\\ checks if the given Twist is fine with the current sensor measurement
+\item \texttt{void updateFromRobotPose(const Pose \&\_p)}\\ computes the sensor absolute position from the given robot pose, then calls \texttt{update}
+\item \texttt{void checkRobotTwist(Twist \&\_t)}\\ computes the twist in the sensor space, then calls \texttt{checkTwist}
 \end{itemize}
-Some of the methods are pure virtual functions, which makes the \texttt{Sensor} class a abstract class.
+Some of the methods are pure virtual functions, which makes the \texttt{Sensor} class an abstract class.
 It is thus impossible to declare a variable to be of \texttt{Sensor} type, as this class is only designed to build daughter-classes depending on the sensor type.
 
-The \texttt{Robot} class already has a attribute called \texttt{sensors\_} which is a vector of \texttt{SensorWithPose}. A \texttt{SensorWithPose} is a simple structure that stores:
-\begin{itemize}
- \item a \texttt{Pose} called pose
- \item a \texttt{Sensor*} called sensor. As the \texttt{Sensor} class is abtract it is forbidden to use it by itself, but pointers are still possible.
-\end{itemize}
+The \texttt{Robot} class already has a attribute called \texttt{sensors\_} which is a vector of \texttt{Sensor*}.
 
-For example to print the pose corresponding to all \texttt{SensorWithPose}, we can write this inside a \texttt{Robot} method:
+For example to update all sensors with the current robot pose, we can write the following:
 \begin{center}\cppstyle
 \begin{lstlisting}
     for(auto & sensor: sensors_)
-	cout << sensor.pose << endl;
-\end{lstlisting}
-\end{center}
-Similarly, to update all sensors with a given pose \texttt{p}, we can write the following:
-\begin{center}\cppstyle
-\begin{lstlisting}
-    Pose p;
-    for(auto & sensor: sensors_)
-	sensor.sensor->update(p);
+	sensor->updateFromRobotPose(pose_);
 \end{lstlisting}
 \end{center}The arrow is because we use a pointer and not an actual value. The corresponding methods have thus to be 
 called with an arrow instead of a dot.
@@ -364,7 +354,7 @@ The angle between the sensor and the robot can be computed with:
 % \SetAlgoLined
 \KwData {Current twist $T$, current bearing $s$, gain $g$}
 \KwResult {Modified twist $T$}
-$T.wz \gets T.wz - g\times s$\;
+$T.w \gets T.w - g\times s$\;
 \Return $T$
 \caption{Modify the given twist to avoid collisions}
 \label{algo:bearing}

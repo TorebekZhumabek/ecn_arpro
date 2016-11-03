@@ -5,6 +5,8 @@
 #include <envir.h>
 #include <robot.h>
 
+using std::endl;using std::cout;
+
 namespace arpro
 {
 
@@ -17,7 +19,8 @@ public:
         s_ = 0;
         s_history_.clear();
         robot_ = &_robot;
-        _robot.attach(this, _x, _y, _theta);
+        pose_ = Pose(_x, _y, _theta);
+        _robot.attach(this);
     }
 
     inline static void setEnvironment(Environment &_envir) {envir_ = &_envir;}
@@ -25,33 +28,31 @@ public:
     // update from current sensor pose
     virtual void update(const Pose &_p) = 0;
 
+    // update from current robot pose
+    void updateFromRobotPose(const Pose &_p)
+    {
+        update(pose_.transformDirect(_p));
+    }
+
     // check twist in sensor frame
     virtual void checkTwist(Twist &_t) {}
 
     // check twist in robot frame
-    void checkRobotTwist(Twist &_t, const Pose &_p)
+    void checkRobotTwist(Twist &_t)
     {
-        bool display_twist = false;
-
-        if(display_twist)
-            std::cout << " Checking new sensor" << std::endl;
-        if(display_twist)
-            std::cout << "     Base robot twist: " << _t << std::endl;
+        cout << " Checking new sensor" << endl;
+        cout << "     Base robot twist: " << _t << endl;
         // twist in sensor frame
-        _t = _t.transformInverse(_p);
-        if(display_twist)
-            std::cout << "     Base sensor twist: " << _t << std::endl;
+        _t = _t.transformInverse(pose_);
+        cout << "     Base sensor twist: " << _t << endl;
 
         // check twist in sensor frame
         checkTwist(_t);
-
-        if(display_twist)
-            std::cout << "     Corrected sensor twist: " << _t << std::endl;
+        cout << "     Corrected sensor twist: " << _t << endl;
 
         // back to robot frame
-        _t = _t.transformDirect(_p);
-        if(display_twist)
-            std::cout << "     Corrected robot twist: " << _t << std::endl;
+        _t = _t.transformDirect(pose_);
+        cout << "     Corrected robot twist: " << _t << endl;
     }
 
     // read current measurement
@@ -64,6 +65,8 @@ protected:
     // measurement history
     std::vector<double> s_history_;
     static Environment* envir_;
+    // pose in robot frame
+    Pose pose_;
     Robot* robot_;
 };
 

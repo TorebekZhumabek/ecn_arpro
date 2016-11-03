@@ -9,14 +9,6 @@ namespace arpro
 
 class Sensor;
 
-
-struct SensorWithPose
-{
-    Pose pose;
-    Sensor* sensor;
-};
-
-
 class Robot
 {
 public:
@@ -26,12 +18,9 @@ public:
     Pose pose() {return pose_;}
 
     // attach a sensor
-    void attach(Sensor *_sensor, double x, double y, double theta)
+    void attach(Sensor *_sensor)
     {
-        SensorWithPose new_sensor;
-        new_sensor.sensor = _sensor;
-        new_sensor.pose = Pose(x,y,theta);
-        sensors_.push_back(new_sensor);
+        sensors_.push_back(_sensor);
     }
     
     void initWheels(double b, double r, double wmax);
@@ -72,7 +61,7 @@ protected:
     double dt_;
 
     // sensors
-    std::vector<SensorWithPose> sensors_;
+    std::vector<Sensor*> sensors_;
 };
 
 }

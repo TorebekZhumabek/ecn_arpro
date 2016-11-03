@@ -23,6 +23,7 @@ add_executable(debug debug.cpp)
 add_executable(hanoi hanoi.cpp)
 add_executable(algo algo.cpp)
 add_executable(inheritance inheritance.cpp)
+add_executable(templates templates.cpp)
 
 add_executable(config config.cpp)
 target_link_libraries(config yaml-cpp)
