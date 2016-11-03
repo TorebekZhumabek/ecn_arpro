@@ -345,7 +345,7 @@ We have to loop through all the robots of the environment, which can be done wit
 \end{center}
 The angle between the sensor and the robot can be computed with:
 \begin{equation*}
- \alpha = \text{arctan2}(y_s - y_r, x_s-x_r) - \theta_s
+ \alpha = \text{arctan2}(y_r - y_s, x_r-x_s) - \theta_s
 \end{equation*}where $(x_s,y_s,\theta_s)$ is the sensor pose and $(x_r,y_r)$ is the robot position.
 
 \medskip\item[\textbf{\underline{Q4}}] We now build the \texttt{checkTwist} method. The bearing sensor should try to align with its target. To do so, we just want to change the rotation velocity:
