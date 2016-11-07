@@ -249,9 +249,21 @@ called with an arrow instead of a dot.
 
 
 \begin{itemize}
-\medskip\item[\textbf{\underline{Q1}}] Create a \texttt{sensor\_range.h} file that defines a \texttt{SensorRange} class that is derived from \texttt{Sensor}. The \texttt{update} and \texttt{checkTwist} methods have to be defined so that the code compiles. For now, just make the methods print something to the screen.
+\medskip\item[\textbf{\underline{Q1}}] Create a \texttt{sensor\_range.h} file that defines a \texttt{RangeSensor} class that is derived from \texttt{Sensor}. The \texttt{update} and \texttt{checkTwist} methods have to be defined so that the code compiles. For now, just make the methods print something to the screen.
+As the \texttt{Sensor} class does not have a default constructor, the \texttt{RangeSensor} class must have its constructor call directly the one from  \texttt{Sensor}:
+\begin{center}\cppstyle
+\begin{lstlisting}
+class RangeSensor : public Sensor
+{
+public:
+    RangeSensor(Robot &_robot, double _x, double _y, double _theta) :
+	Sensor(_robot, _x,  _y,  _theta) // call the Sensor constructor
+	{// the RangeSensor constructor does nothing more}
+}    
+\end{lstlisting}
+\end{center}
 
-\medskip\item[\textbf{\underline{Q2}}] Include this file in \texttt{main.cpp} and declare a \texttt{SensorRange} variable.  We will use a front range sensor placed at $(0.1, 0,0)$ in the robot frame.
+\medskip\item[\textbf{\underline{Q2}}] Include this file in \texttt{main.cpp} and declare a \texttt{RangeSensor} variable.  We will use a front range sensor placed at $(0.1, 0,0)$ in the robot frame.
 
 \medskip\item[\textbf{\underline{Q3}}] In the \texttt{Robot::moveWithSensor} method we currently do not take into account the sensor measurement. 
 Before calling \texttt{moveVW} we should loop through all the sensors of the robot and call their \texttt{updateFromRobotPose} method.
