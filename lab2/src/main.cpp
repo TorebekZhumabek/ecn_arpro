@@ -4,8 +4,7 @@
 
 #include <robot.h>
 #include <envir.h>
-#include <sensor_range.h>
-#include <sensor_bearing.h>
+#include <sensor.h>
 
 using namespace std;
 using namespace arpro;

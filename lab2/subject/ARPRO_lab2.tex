@@ -332,7 +332,7 @@ s_m &= 0.1~ m
 
 In this section we will create a new kind of sensor, that returns the bearing angle to the other robot in the simulation.
 Define first a new robot with smaller wheels (0.05 m). \\
-In the main loop, we just want this robot to go forward at 0.4 m/s: \\\texttt{robot2.moveWithConstraints(Twist(0.4,0,0));}\\
+In the main loop, we just want this robot to go forward at 0.4 m/s: \\\texttt{robot2.moveWithSensor(Twist(0.4,0,0));}\\
 Of course it will go out of the wall for now.
 
 \begin{itemize}
