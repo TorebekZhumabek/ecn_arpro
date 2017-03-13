@@ -20,7 +20,7 @@
 
 \section{Content of this lab}
 
-The goal of the first C++ labs are to discover the language by building small projects.
+The goal of the first C++ labs is to discover the language by building small projects.
 Many projects are listed below and you are encouraged to try and build several of them. Most of them can be done without using evolved concepts of C++. You can also build your own project if you have a clear idea of the goal to be reached.
 
 You are encouraged to use functions, classes or even templates if you think it will lead to a better code that is easier to understand and to write.
@@ -33,7 +33,6 @@ You may look for mathematical solutions, problem formulation or problem variatio
 
 We use CMake tools to compile our projects.
 The content of the CMakeLists.txt file should follow the structure of your code directory (or preferably sub-directory):
-The structure of your code directory (or sub-directory should be like:
 \begin{center}
 \begin{minipage}{.4\linewidth}
  \dirtree{%
@@ -49,7 +48,7 @@ The structure of your code directory (or sub-directory should be like:
 .2 CMakeLists.txt.
 } 
 \end{minipage}
-\begin{minipage}{.5\linewidth}\cppstyle
+\begin{minipage}{.55\linewidth}\pythonstyle
 \begin{lstlisting}
 cmake_minimum_required (VERSION 2.6)
 project (MYPROJECT)
@@ -61,7 +60,7 @@ include_directories(include)
 add_executable(mygame 
   src/main.cpp include/a_basic_header.h
   include/a_class.h a_src/class.cpp
-  include/some_function.h src/some_function.cpp)
+  include/some_functions.h src/some_functions.cpp)
 \end{lstlisting} \end{minipage}
 \end{center}
 
@@ -86,7 +85,7 @@ Before loading a project in Qt Creator, you have at least to write a basic CMake
 \item Add this file in the CMakeLists.txt and right-click on the Project to run CMake to tell Qt Creator that the structure of the project has changed
 \item Compilation is done by clicking the bottom-left hammer
 \item Run your program with the green triangle. However, if you need user input, you will need to run the program from the console.
-\item Do to so, open en terminal, go to the \texttt{build} folder and type the name of the program: \texttt{./myprogram}
+\item Do to so, open a terminal, go to the \texttt{build} folder and type the name of the program: \texttt{./myprogram}
 \end{enumerate}
 
 
