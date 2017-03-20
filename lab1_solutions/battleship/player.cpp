@@ -2,6 +2,9 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
+using std::cout;
+using std::endl;
+
 // static variables
 // 0 = nothing
 // 1 = missed
@@ -51,14 +54,42 @@ Player::Player(bool _human)
 
 }
 
-// get a given line of the whole grid
+// prints this grid and the one of the other player
+void Player::Print(const Player &other)
+{
+    unsigned int i;
+    // begin by the line numbers
+    for(unsigned int j=0;j<2;++i)
+    {
+        for(i=0;i<10;++i)
+        {
+            cout << i << "  ";
+        }
+        cout << "    ";
+    }
+
+    // then print all lines
+    for(i=0;i<10;++i)
+        cout << PrintLine(i) << "    " << other.PrintLine(i);
+    cout << endl;
+
+
+
+}
+
+// returns a single line
 std::stringstream Player::PrintLine(unsigned int r)
 {
-std::stringstream ss;
-ss << r;
-return ss;
+    std::stringstream ss;
+    ss << r;
 
 
+
+
+
+
+
+    return ss;
 
 }
 

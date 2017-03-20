@@ -24,8 +24,8 @@ public:
         return grid[10*r + c];
     }
 
-    // get a given line of the whole grid
-    std::stringstream PrintLine(unsigned int r);
+    // print this grid and the one of the other player
+    void Print(const Player &other);
 
 
 
@@ -43,6 +43,9 @@ protected:
     // static for legends, lengths, etc.
     static std::vector<std::string> legend;
     static std::vector<unsigned int> length;
+
+    // print a grid line
+    std::stringstream PrintLine(unsigned int r);
 
 
 
