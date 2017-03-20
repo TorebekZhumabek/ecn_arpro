@@ -6,7 +6,7 @@
 #include <string>
 #include <sstream>
 
-// a Player class that may be humaon or not
+// a Player class that may be human or not
 
 class Player
 {
@@ -26,12 +26,6 @@ public:
 
     // print this grid and the one of the other player
     void Print(const Player &other);
-
-
-
-
-
-
 
 
 protected:

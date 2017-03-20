@@ -68,10 +68,10 @@ void Player::Print(const Player &other)
         cout << "    ";
     }
 
-    // then print all lines
+  /*  // then print all lines
     for(i=0;i<10;++i)
         cout << PrintLine(i) << "    " << other.PrintLine(i);
-    cout << endl;
+    cout << endl;*/
 
 
 
