@@ -10,3 +10,5 @@ add_executable(rps basics/rps.cpp)
 # Battleship
 add_executable(battleship battleship/player.h battleship/player.cpp battleship/main.cpp)
 
+# 1 vs 1 game with alpha-beta algorithm
+add_executable(tictactoe alpha_beta/alpha_beta.h alpha_beta/alpha_beta_game.h alpha_beta/tictactoe_config.h alpha_beta/tictactoe.cpp)

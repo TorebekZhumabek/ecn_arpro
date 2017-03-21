@@ -11,7 +11,7 @@
 class Player
 {
 public:
-    Player(bool _human = true);
+    Player(std::string _name, bool _human = true);
 
     // the value at a given grid position
     inline int& cell(unsigned int r, unsigned int c)
@@ -25,13 +25,23 @@ public:
     }
 
     // print this grid and the one of the other player
-    void Print(const Player &other);
+    void Print(Player &other);
+
+    // shoot at the other
+    bool Shoot(Player &other);
+
+    void wins() {std::cout << name << " wins!"<< std::endl;}
 
 
 protected:
     bool human;
+    std::string name;
     std::vector<int> grid;
     unsigned int alive;
+    std::vector<unsigned int> alive_b;
+
+    // for computer: history of passed shots
+    std::vector<unsigned int> hist;
 
 
     // static for legends, lengths, etc.
@@ -39,7 +49,7 @@ protected:
     static std::vector<unsigned int> length;
 
     // print a grid line
-    std::stringstream PrintLine(unsigned int r);
+    std::string PrintLine(unsigned int r);
 
 
 
