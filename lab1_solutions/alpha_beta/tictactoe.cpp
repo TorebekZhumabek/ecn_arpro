@@ -1,26 +1,9 @@
 #include <algorithm>
 #include <vector>
+#include "tictactoe_config.h"
+#include "alpha_beta_game.h"
 
-
-/* This class is a template for an alpha-beta game
- * Assumes human vs computer
- */
-
-class AlphaBetaGame
+int main()
 {
-public:
-
-
-
-
-
-
-
-
-protected:
-
-
-
-
-
-};
+    AlphaBetaGame<TicTacToe>();
+}
