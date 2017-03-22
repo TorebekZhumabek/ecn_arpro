@@ -1,9 +1,9 @@
 #include <algorithm>
 #include <vector>
-#include "tictactoe_config.h"
+#include "four_in_a_row_config.h"
 #include "alpha_beta_game.h"
 
 int main()
 {
-    AlphaBetaGame<TicTacToe>(true,false,1);
+    AlphaBetaGame<FourInARow>(true, false, 2);
 }

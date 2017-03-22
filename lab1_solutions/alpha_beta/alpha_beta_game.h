@@ -4,8 +4,9 @@
 
 // This function is a generic alpha-beta game using a given game configuration
 // p1 starts.
-template <class T> void AlphaBetaGame(bool p1_human = true, bool p2_human = false)
+template <class T> void AlphaBetaGame(bool p1_human = true, bool p2_human = false, unsigned int max_recur = 5)
 {
+    srand (clock());
     T config;
     std::vector<bool> is_human = {p1_human, p2_human};
     int a, b;
@@ -14,13 +15,11 @@ template <class T> void AlphaBetaGame(bool p1_human = true, bool p2_human = fals
     int player = 1;
     while(!config.Winner() && !config.Over())
     {
-        if(is_human[player-1])
-        {
-            config.Print();
-            config.HumanInput(player,true);
-        }
+        config.Print();
+        if(is_human[player-1])            
+            config.HumanInput(player);
         else if (config.MustThink())
-            alpha_beta(config, player, player, a, b, true);
+            alpha_beta(config, player, player, a, b, 0, 2*max_recur);
         player = 3-player;
     }
     config.Print();

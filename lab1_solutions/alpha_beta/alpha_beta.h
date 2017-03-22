@@ -6,18 +6,19 @@
  */
 
 template<class T>
-int alpha_beta(T config, unsigned int player, unsigned int computer, int alpha, int beta, bool first_call = false)
+int alpha_beta(T& config, int player, int computer, int alpha, int beta, unsigned int recur, unsigned int max_recur)
 {
-    if(first_call)
+    if(recur == 0)
     {
-        //std::vector<move type> choices;
+
         auto choices = config.AvailableMoves();
         choices.clear();
         int val;
         for(auto move: config.AvailableMoves())
         {
             config.MakeMove(move);
-            val = alpha_beta(config, 3-player, computer, alpha, beta);
+            val = -alpha_beta(config, player, computer, alpha, beta, 1, max_recur);
+            std::cout << "Move " << move << " -> score = " << val << std::endl;
             config.CancelMove(move);
             if(val > alpha)
             {
@@ -28,41 +29,39 @@ int alpha_beta(T config, unsigned int player, unsigned int computer, int alpha, 
                 choices.push_back(move);
         }
         unsigned int idx = rand() % choices.size();
+        std::cout << "Making move " << choices[idx] << std::endl;
         config.MakeMove(choices[idx]);
     }
     else
     {
         // check for end of game
         int win = config.Winner();
-        if(win == computer)
-            return 1;
-        else if(win)
-            return -1;
-        else if(config.Over())
-            return 0;
+        if(win)
+            return -100+recur;
+
+        // what to return
+        if(config.Over() || recur == max_recur)
+            return (player == computer)?-recur:recur;
 
         // build new moves
-        int val;
+        int val, best = -5000;
+
         for(auto move: config.AvailableMoves())
         {
             config.MakeMove(move);
-            val = alpha_beta(config, 3-player, computer, alpha, beta);
+            val = -alpha_beta(config, 3-player, computer, -beta, -alpha, recur+1, max_recur);
             config.CancelMove(move);
-
-
-
-
-
-
+            if(val > best)
+            {
+                best = val;
+                if(best > alpha)
+                {
+                    alpha = best;
+                    if(alpha > beta)
+                        return best;
+                }
+            }
         }
-
-
-
-
-
+        return best;
     }
-
-
-
-    return 0;
 }

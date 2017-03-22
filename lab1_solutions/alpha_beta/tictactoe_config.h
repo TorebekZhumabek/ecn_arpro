@@ -19,8 +19,8 @@ public:
 
     void GetAlphaBeta(int &a, int &b)
     {
-        a=-2;
-        b=2;
+        a=-200;
+        b=200;
     }
 
     // check if the game is finished, does not check for a winner
@@ -36,7 +36,7 @@ public:
 
 
     // returns winner (1 or 2) or 0 if no winner
-    unsigned int Winner()
+    int Winner()
     {
         for(unsigned int player: {1,2})
         {
@@ -131,6 +131,8 @@ public:
         MakeMove(5);
         return false;
     }
+
+    int Turns() {return 0;}//turn_count;}
 
 protected:
     std::vector<unsigned int> moves;

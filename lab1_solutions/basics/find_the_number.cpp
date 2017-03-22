@@ -16,14 +16,12 @@ int main(int argc, char ** argv)
     if(human_guess)
     {
         srand(time(NULL));
-        const unsigned int n = rand() % 100;
-
+        const unsigned int n = (rand() % 100) + 1;
         unsigned int m;
         while(true)
         {
             // ask the user for a number
-            cout << "Please enter a number: ";
-            cin >> m;
+            cout << "Please enter a number (1-100): "; cin >> m;
 
             // test against n
             if(m == n)
@@ -40,7 +38,7 @@ int main(int argc, char ** argv)
     }
     else
     {
-        unsigned int lower = 0, upper = 99;
+        unsigned int lower = 1, upper = 100;
         unsigned int guess, response;
         while(true)
         {
