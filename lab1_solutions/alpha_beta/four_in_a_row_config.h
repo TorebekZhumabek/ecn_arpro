@@ -153,11 +153,12 @@ public:
         else
         {
             auto avail = AvailableMoves();
-
-            while(i < 1 || i > 7)
+            while(true)
             {
                 std::cout << "Player " << player << "'s turn, enter a number in [1,7]: ";
                 std::cin >> i;
+                if(i > 0 && i < 8 && !NotContains(avail, i))
+                    break;
             }
         }
         MakeMove(i);

@@ -5,5 +5,5 @@
 
 int main()
 {
-    AlphaBetaGame<TicTacToe>(true,false,1);
+    AlphaBetaGame<TicTacToe>(true,false,2);
 }

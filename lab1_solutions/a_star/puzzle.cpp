@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <memory>
 
 using namespace std;
 
@@ -48,7 +49,7 @@ public:
 
     void SetParent(Puzzle *_parent)
     {
-        parent = _parent;
+        parent.reset(_parent);
         travel = parent->travel+1;
     }
 
@@ -62,11 +63,11 @@ public:
         }
     }
 
-    bool is(Puzzle &goal)
+    bool is(std::shared_ptr<Puzzle> goal_ptr)
     {
         for(int i=0;i<n*n-2;++i)
         {
-            if(grid[i] != goal.grid[i])
+            if(grid[i] != goal_ptr->grid[i])
                 return false;
         }
         return true;
@@ -89,13 +90,12 @@ public:
         return moves;
     }
 
-    vector<Puzzle> Children()
+    void Children(vector<shared_ptr<Puzzle> > &children)
     {
-        vector<Puzzle> children;
+        children.clear();
 
         for(auto c: Moves())
-            children.push_back(Puzzle(this, c));
-        return children;
+            children.push_back(shared_ptr<Puzzle>(new Puzzle(this, c)));
     }
 
     void Compute_h(const Puzzle &goal)
@@ -133,7 +133,7 @@ public:
 
 protected:
     std::vector<unsigned int> grid;
-    Puzzle *parent;
+    shared_ptr<Puzzle> parent;
     static unsigned int n;
     unsigned int c0;
     double h, travel;
