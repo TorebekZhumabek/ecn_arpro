@@ -15,9 +15,11 @@ template <class T> void AlphaBetaGame(bool p1_human = true, bool p2_human = fals
     int player = 1;
     while(!config.Winner() && !config.Over())
     {
-        config.Print();
-        if(is_human[player-1])            
+        if(is_human[player-1])
+        {
+            config.Print();
             config.HumanInput(player);
+        }
         else if (config.MustThink())
             alpha_beta(config, player, player, a, b, 0, 2*max_recur);
         player = 3-player;

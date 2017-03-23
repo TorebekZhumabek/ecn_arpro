@@ -31,37 +31,37 @@ int alpha_beta(T& config, int player, int computer, int alpha, int beta, unsigne
         unsigned int idx = rand() % choices.size();
         std::cout << "Making move " << choices[idx] << std::endl;
         config.MakeMove(choices[idx]);
+        return 0;
     }
-    else
+
+
+    // check for end of game
+    int win = config.Winner();
+    if(win)
+        return -100+recur;
+
+    // what to return
+    if(config.Over() || recur == max_recur)
+        return (player == computer)?-recur:recur;
+
+    // build new moves
+    int val, best = -5000;
+
+    for(auto move: config.AvailableMoves())
     {
-        // check for end of game
-        int win = config.Winner();
-        if(win)
-            return -100+recur;
-
-        // what to return
-        if(config.Over() || recur == max_recur)
-            return (player == computer)?-recur:recur;
-
-        // build new moves
-        int val, best = -5000;
-
-        for(auto move: config.AvailableMoves())
+        config.MakeMove(move);
+        val = -alpha_beta(config, 3-player, computer, -beta, -alpha, recur+1, max_recur);
+        config.CancelMove(move);
+        if(val > best)
         {
-            config.MakeMove(move);
-            val = -alpha_beta(config, 3-player, computer, -beta, -alpha, recur+1, max_recur);
-            config.CancelMove(move);
-            if(val > best)
+            best = val;
+            if(best > alpha)
             {
-                best = val;
-                if(best > alpha)
-                {
-                    alpha = best;
-                    if(alpha > beta)
-                        return best;
-                }
+                alpha = best;
+                if(alpha > beta)
+                    return best;
             }
         }
-        return best;
     }
+    return best;
 }

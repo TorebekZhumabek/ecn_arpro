@@ -13,3 +13,11 @@ add_executable(battleship battleship/player.h battleship/player.cpp battleship/m
 # 1 vs 1 game with alpha-beta algorithm
 add_executable(tictactoe alpha_beta/alpha_beta.h alpha_beta/alpha_beta_game.h alpha_beta/tictactoe_config.h alpha_beta/tictactoe.cpp)
 add_executable(four_in_a_row alpha_beta/alpha_beta.h alpha_beta/alpha_beta_game.h alpha_beta/four_in_a_row_config.h alpha_beta/four_in_a_row.cpp)
+
+
+# minimization
+add_executable(scalar minimization/scalar.cpp)
+add_executable(nD_function minimization/nd_function.cpp minimization/nd_vector.h)
+
+# A* algorithm
+add_executable(puzzle a_star/puzzle.cpp a_star/a_star.h)
