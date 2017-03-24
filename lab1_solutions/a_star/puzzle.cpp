@@ -2,7 +2,6 @@
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
-#include <memory>
 
 using namespace std;
 
@@ -10,7 +9,7 @@ using namespace std;
 class Puzzle
 {
 public:
-    // default constructor randomizes the puzzle
+    // default constructor
     Puzzle()
     {
         grid.resize(n*n,0);
@@ -22,6 +21,7 @@ public:
         c0 = n*n-1;
 
         travel = 0;
+        parent = 0;
     }
 
     void Randomize()
@@ -30,7 +30,7 @@ public:
         srand(clock());
         vector<unsigned int> moves;
 
-        for(int i=0;i<30;++i)
+        for(int i=0;i<40;++i)
         {
             moves = Moves();
             int idx = rand() % moves.size();
@@ -49,21 +49,44 @@ public:
 
     void SetParent(Puzzle *_parent)
     {
-        parent.reset(_parent);
+        parent = _parent;
         travel = parent->travel+1;
     }
 
+    Puzzle* GetParent() {return parent;}
+
+
     void Print()
     {
+        if(parent)
+        {
+            // print the move to go from parent to this
+            int diff = c0 - parent->c0;
+            cout << grid[parent->c0];
+            if(diff == -1)
+                cout << " right";
+            else if(diff == 1)
+                cout << " left";
+            else if(diff == n)
+                cout << " up";
+            else
+                cout << " down";
+            cout << endl;
+        }
         for(unsigned int i=0;i<n;++i)
         {
             for(unsigned int j=0;j<n;++j)
+            {
+                if(grid[n*i+j])
                 cout << grid[n*i+j] << " ";
+                else
+                    cout << ". ";
+            }
             cout << endl;
         }
     }
 
-    bool is(std::shared_ptr<Puzzle> goal_ptr)
+    bool is(Puzzle * goal_ptr)
     {
         for(int i=0;i<n*n-2;++i)
         {
@@ -90,12 +113,12 @@ public:
         return moves;
     }
 
-    void Children(vector<shared_ptr<Puzzle> > &children)
+    void Children(vector<Puzzle* > &children)
     {
         children.clear();
 
         for(auto c: Moves())
-            children.push_back(shared_ptr<Puzzle>(new Puzzle(this, c)));
+            children.push_back(new Puzzle(this, c));
     }
 
     void Compute_h(const Puzzle &goal)
@@ -133,7 +156,7 @@ public:
 
 protected:
     std::vector<unsigned int> grid;
-    shared_ptr<Puzzle> parent;
+    Puzzle* parent;
     static unsigned int n;
     unsigned int c0;
     double h, travel;

@@ -2,8 +2,7 @@
 #define A_STAR_H
 #include <vector>
 #include <algorithm>
-#include <memory>
-#include <functional>
+#include <iostream>
 
 // templated version of A* algorithm
 
@@ -11,11 +10,10 @@ template<class T>
 void Astar(T start, T goal)
 {
     // a shortcut
-    typedef std::shared_ptr<T> Tptr;
-    Tptr goal_ptr(&goal);
+    T* goal_ptr(&goal);
 
     // the sets we need
-    std::vector<Tptr > closedSet, openSet = {Tptr(&start)}, children, unionSet;
+    std::vector<T*> closedSet, openSet = {&start}, children, unionSet;
 
     start.Compute_h(goal);
     unsigned int idx;
@@ -27,14 +25,14 @@ void Astar(T start, T goal)
         {
             if(openSet[i]->f() < openSet[idx]->f())
                 idx = i;
-        }
-        // candidate = openSet[idx]
+        }        
         if(openSet[idx]->is(goal_ptr))
             break;
 
         closedSet.push_back(openSet[idx]);
         openSet.erase(openSet.begin()+idx);
 
+        // candidate = closedSet.back()
         closedSet.back()->Children(children);
 
         for(auto child: children)
@@ -48,35 +46,49 @@ void Astar(T start, T goal)
 
             // look for children in union set
             auto twin = std::find_if(unionSet.begin(), unionSet.end(),
-                                        [child](Tptr elem){return elem->is(child);} );
+                                        [child](T* elem){return elem->is(child);} );
 
-
-
-
-
-            for(union_idx=0;union_idx<openSet.size()+closedSet.size();++union_idx)
-            {
-                // get element from union
-                if(union_idx < openSet.size())
-                    union_elem = *(openSet[union_idx]);
-                else
-                    union_elem = *(closedSet[union_idx-openSet.size()]);
-                if(union_elem->is(neighboor))
+            if(twin != unionSet.end())
+            {   // child is is union
+                if((*twin)->g() > child->g())
                 {
-
+                    openSet.push_back(*twin);
+                    openSet.back()->SetParent(closedSet.back());
                 }
+            }
+            else
+            {   // child not in union
+                child->Compute_h(goal);
+                openSet.push_back(child);
             }
         }
 
     }
 
-
-
-
-
-
-
-
+    // we may exit the loop because openSet is empty (no solution) or not (solution = openSet[idx])
+    if(openSet.size())
+    {
+        T* current = openSet[idx];
+        std::vector<T*> summary = {current};
+        // build list from end to start
+        while(current->GetParent())
+        {
+            current = current->GetParent();
+            summary.push_back(current);
+        }
+        // print list form start to end
+        std::reverse(summary.begin(),summary.end());
+        for(auto &elem: summary)
+        {
+            elem->Print();
+            std::cout << std::endl;
+        }
+        std::cout << "solved in " << summary.size()-1 << " steps" << std::endl;
+    }
+    else
+    {
+        std::cout << "No solutions " << std::endl;
+    }
 }
 
 
