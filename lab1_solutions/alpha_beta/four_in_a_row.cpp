@@ -5,5 +5,5 @@
 
 int main()
 {
-    AlphaBetaGame<FourInARow>(false, false, 3);
+    AlphaBetaGame<FourInARow>(true, false, 3);
 }
