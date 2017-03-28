@@ -3,6 +3,11 @@ project(arpro_robot_sols)
 
 add_compile_options(-std=c++11)
 
+# YAML needed for genetic algorithms
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(YamlCpp yaml-cpp)
+
+
 # basic exercises
 add_executable(find_the_number basics/find_the_number.cpp)
 add_executable(rps basics/rps.cpp)
@@ -21,3 +26,8 @@ add_executable(nD_function minimization/nd_function.cpp minimization/nd_vector.h
 # A* algorithm
 add_executable(puzzle a_star/puzzle.cpp a_star/a_star.h)
 add_executable(navigation a_star/navigation.cpp a_star/a_star.h)
+
+# Genetic Algorithm, using ok_tools package
+include_directories(${YamlCpp_INCLUDE_DIRS})
+add_executable(function_ga ga/function_indiv.h ga/main.cpp)
+target_link_libraries(function_ga yaml-cpp ${CMAKE_THREAD_LIBS_INIT})
