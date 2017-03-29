@@ -15,7 +15,6 @@ using namespace std;
 // 6 = aircraft carrier (length 5)
 // negative = boat hit
 std::vector<std::string> Player::legend = {".", "x", "M", "S", "D", "C", "A"};
-std::vector<unsigned int> Player::length = {2,3,3,4,5};
 
 Player::Player(std::string _name, bool _human)
 {
@@ -28,22 +27,21 @@ Player::Player(std::string _name, bool _human)
     grid.resize(100,0);
     // initialize grid
     srand (clock());
-    alive = 0;
-    alive_b = length;
+    alive = {2,3,3,4,5};  // alive points per boat = lengths
     unsigned int dir, r, c;
-    for(unsigned int i=0;i<length.size();++i)
+    for(unsigned int i=0;i<alive.size();++i)
     {
         bool occupied = true;
         // try to find a place for this boat
         while(occupied)
         {
             dir = rand() % 2;   // 0 = horizontal, 1 = vertical
-            r = rand() % (10*(1-dir) + (10-length[i])*dir);  // starting row
-            c = rand() % (10*(dir) + (10-length[i])*(1-dir));  // starting column
+            r = rand() % (10*(1-dir) + (10-alive[i])*dir);  // starting row
+            c = rand() % (10*(dir) + (10-alive[i])*(1-dir));  // starting column
 
             // test if this slot is ok
             occupied = false;
-            for(unsigned int j=0;j<length[i];++j)
+            for(unsigned int j=0;j<alive[i];++j)
             {
                 if(cell(r + j*dir, c + j*(1-dir)))
                     occupied = true;
@@ -51,8 +49,7 @@ Player::Player(std::string _name, bool _human)
         }
 
         // actually write the boat
-        alive += length[i];
-        for(unsigned int j=0;j<length[i];++j)
+        for(unsigned int j=0;j<alive[i];++j)
             cell(r + j*dir, c + j*(1-dir)) = i+2;   // boats start at 2
     }
 
@@ -104,10 +101,8 @@ std::string Player::PrintLine(unsigned int r)
         }
         else
         {
-            if(v < 0)               // hit boat, display it
-                leg = legend[-v];
-            else if(v < 2)          // nothing or miss, display it
-                leg = legend[v];
+            if(v < 2)               // hit boat or nothing or miss, display it
+                leg = legend[abs(v)];
             else                    // non-hit boat, do not display
                 leg = legend[0];
         }
@@ -128,6 +123,7 @@ bool Player::Shoot(Player &other)
     }
     else
     {
+        // computer never targets the same position twice. That's about it.
         while(count(hist.begin(), hist.end(),10*r+c))
         {
             r = rand() % 10;
@@ -147,8 +143,7 @@ bool Player::Shoot(Player &other)
         cout << " -> "<< name << " already shot there..." << endl;
     else if(v > 1)
     {
-        other.alive--;
-        if(--(other.alive_b[v-2]))
+        if(--(other.alive[v-2]))    // remove 1 but still is non-null -> hit but not sunk
             cout << " -> "<< name << " hit a " << legend[v] << "!"<< endl;
         else
             cout << " -> "<< name << " sank a " << legend[v] << "!"<< endl;
@@ -156,8 +151,12 @@ bool Player::Shoot(Player &other)
         other.cell(r,c) *= -1;
     }
 
+    // count if any boats left
+    int total = 0;
+    for(int pts: alive)
+        total += pts;
 
-    return other.alive == 0;
+    return total == 0;    // no boats left -> over
 }
 
 

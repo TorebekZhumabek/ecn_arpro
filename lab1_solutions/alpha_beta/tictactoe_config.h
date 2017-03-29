@@ -13,7 +13,7 @@ public:
         moves.reserve(9);
         moves.clear();
         turn_count = 1;
-        combos = {{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{7,5,3}};
+        combos = {{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{7,5,3}}; // winning combos
         positions.reserve(5);
     }
 
@@ -26,6 +26,7 @@ public:
     // check if the game is finished, does not check for a winner
     bool Over()
     {
+        // it is finished as soon as 9 moves have been played
         return moves.size() == 9;
     }
 
@@ -123,16 +124,14 @@ public:
         MakeMove(i);
     }
 
-    bool MustThink()
+    bool MustThink()    // returns true unless it is the first turn, in this case plays the center cell
     {
-        if(moves.size() != 9)
+        if(moves.size())
             return true;
 
         MakeMove(5);
         return false;
     }
-
-    int Turns() {return 0;}//turn_count;}
 
 protected:
     std::vector<unsigned int> moves;

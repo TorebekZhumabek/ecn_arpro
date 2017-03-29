@@ -96,19 +96,25 @@ public:
         return true;
     }
 
-    vector<unsigned int> Moves()
+    vector<unsigned int> Moves()    // only gives moves not going back to parent
     {
         vector<unsigned int> moves;
-        if(c0 > n)                  // up-move with c0 - n
+        int cp = -1;
+        // avoid creating a child that is actually the parent
+        if(parent)
+            cp = parent->c0;
+
+
+        if(c0 > n && cp != c0-n)                  // up-move with c0 - n
             moves.push_back(c0-n);
 
-        if(c0 < n*n-n)              // down move with c0 + n
+        if(c0 < n*n-n && cp != c0+n)              // down move with c0 + n
             moves.push_back(c0+n);
 
-        if(c0 % n != 0)             // left move with c0 -1
+        if(c0 % n != 0 && cp != c0-1)             // left move with c0 -1
             moves.push_back(c0-1);
 
-        if(c0 % n != n-1)           // right move with c0+1
+        if(c0 % n != n-1 && cp != c0+1)           // right move with c0+1
             moves.push_back(c0+1);
         return moves;
     }
@@ -116,9 +122,13 @@ public:
     void Children(vector<Puzzle* > &children)
     {
         children.clear();
-
+        std::cout << "Creating children of " << c0 << "... ";
         for(auto c: Moves())
+        {
             children.push_back(new Puzzle(this, c));
+            std::cout << c << " ";
+        }
+        std::cout << std::endl;
     }
 
     void Compute_h(const Puzzle &goal)

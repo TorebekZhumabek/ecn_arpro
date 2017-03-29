@@ -5,5 +5,5 @@
 
 int main()
 {
-    AlphaBetaGame<TicTacToe>(true,false,2);
+    AlphaBetaGame<TicTacToe>(true,false,2); // human vs computer, AI looks 4 turns ahead
 }

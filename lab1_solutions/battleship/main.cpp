@@ -5,9 +5,6 @@ using std::endl;
 
 int main()
 {
-
-
-
     Player p1("Player"), p2("Computer", false);
 
     while(true)
@@ -25,10 +22,6 @@ int main()
             break;
         }
     }
-
-
-
-
 
 }
 

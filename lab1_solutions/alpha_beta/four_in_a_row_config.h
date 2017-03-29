@@ -164,12 +164,15 @@ public:
         MakeMove(i);
     }
 
+    // returns true unless it is the first turn, in this case plays 4th column
     bool MustThink()
     {
-        return true;
-    }
+        if(turn_count)
+            return true;
 
-    int Turns() {return turn_count;}
+        MakeMove(4);
+        return false;
+    }
 
 protected:
     std::vector<std::vector<unsigned int> > grid;

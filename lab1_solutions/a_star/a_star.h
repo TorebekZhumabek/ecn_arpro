@@ -15,7 +15,10 @@ void Astar(T start, T goal)
     // the sets we need
     std::vector<T*> closedSet, openSet = {&start}, children, unionSet;
 
+    int evaluated = 0, created = 0, shortcut = 0;
+
     start.Compute_h(goal);
+    evaluated++;
     unsigned int idx;
     while(openSet.size())
     {
@@ -34,6 +37,7 @@ void Astar(T start, T goal)
 
         // candidate = closedSet.back()
         closedSet.back()->Children(children);
+        created += children.size();
 
         for(auto child: children)
         {
@@ -51,14 +55,16 @@ void Astar(T start, T goal)
             if(twin != unionSet.end())
             {   // child is is union
                 if((*twin)->g() > child->g())
-                {
+                {   // we found a better way to come to this element -> update parent
+                    shortcut++;
                     openSet.push_back(*twin);
                     openSet.back()->SetParent(closedSet.back());
                 }
             }
             else
-            {   // child not in union
+            {   // child not in union, add it
                 child->Compute_h(goal);
+                evaluated++;
                 openSet.push_back(child);
             }
         }
@@ -89,6 +95,7 @@ void Astar(T start, T goal)
     {
         std::cout << "No solutions " << std::endl;
     }
+    std::cout << created << " nodes created, " << evaluated << " evaluated, " << shortcut << " shortcuts found" << std::endl;
 }
 
 

@@ -2,16 +2,20 @@
 #include <iostream>
 #include <string>
 #include <math.h>
-#include <ok_galg/indiv.h>
 
 using namespace std;
-using namespace ok_galg;
 
-class FunctionIndiv : public ok_galg::Indiv // gives cost and comparison operator
+
+
+
+class Position // gives cost and comparison operator
 {
 public:
     // default constructor
-    FunctionIndiv() {}
+    Position() {Randomize();}
+
+    // comparison operator for std::sort
+    friend bool operator<(const Position &_a, const Position &_b) {return _a.cost < _b.cost;}
 
     // randomize: a individual is (x,y) in [-5,5]
     void Randomize()
@@ -21,15 +25,16 @@ public:
         ComputeCost();
     }
 
-    // copy
-    void Copy(const FunctionIndiv &_other) {x=_other.x;y=_other.y;cost=_other.cost;}
+    // copy from another Position
+    void Copy(const Position &_other) {x=_other.x;y=_other.y;cost=_other.cost;}
 
+    // depends on the minimized function
     void ComputeCost()
-    {
+    {                
         cost = 20 + x*x + y*y - 10*(cos(2*M_PI*x) + cos(2*M_PI*y));
     }
 
-    void CrossAndMutate(FunctionIndiv &_father, FunctionIndiv &_mother)
+    void CrossAndMutate(Position &_father, Position &_mother)
     {
         // crossing: random mean between father and mother
         double alpha = (1.*rand())/RAND_MAX;
@@ -44,7 +49,6 @@ public:
             x = 5*x/fabs(x);
         if(fabs(y) > 5)
             y = 5*y/fabs(y);
-
         ComputeCost();
     }
 
@@ -54,7 +58,7 @@ public:
     }
 
 protected:
-    double x, y;
+    double x, y, cost;
 };
 
 

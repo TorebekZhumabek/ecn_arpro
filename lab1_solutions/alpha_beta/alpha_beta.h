@@ -10,7 +10,6 @@ int alpha_beta(T& game, int alpha, int beta, unsigned int recur, unsigned int ma
 {
     if(recur == 0)
     {
-
         auto choices = game.AvailableMoves();
         choices.clear();
         int val;

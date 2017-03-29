@@ -27,7 +27,6 @@ add_executable(nD_function minimization/nd_function.cpp minimization/nd_vector.h
 add_executable(puzzle a_star/puzzle.cpp a_star/a_star.h)
 add_executable(navigation a_star/navigation.cpp a_star/a_star.h)
 
-# Genetic Algorithm, using ok_tools package
-include_directories(${YamlCpp_INCLUDE_DIRS})
-add_executable(function_ga ga/function_indiv.h ga/main.cpp)
-target_link_libraries(function_ga yaml-cpp ${CMAKE_THREAD_LIBS_INIT})
+# Genetic Algorithm with multi-thread
+add_executable(function_ga ga/function_indiv.h ga/genetic_algo.h ga/main.cpp)
+target_link_libraries(function_ga ${CMAKE_THREAD_LIBS_INIT})

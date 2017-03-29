@@ -5,6 +5,11 @@
 
 using namespace std;
 
+
+// Class to use in A* for path planning
+// An element is a (x,y) position in the grid
+// The children are the available (x,y) positions with 1 move except for obstacles
+
 // what is this position
 class Position
 {
@@ -12,7 +17,7 @@ public:
     // default constructor
     Position(int _x, int _y) : travel(0), parent(0),x(_x), y(_y) {}
 
-    // builds initial grid based on desired start and goal positions
+    // builds initial grid and puts random obstacles based on desired start and goal positions (no obstacles at start and end...)
     static void BuildGrid(Position &start, Position &goal, int nb)
     {
         srand(clock());
@@ -39,6 +44,7 @@ public:
         }
     }
 
+    // constructor from parent
     Position(Position *_parent, int _x, int _y) : x(_x), y(_y)
     {
         SetParent(_parent);
@@ -53,6 +59,7 @@ public:
     Position* GetParent() {return parent;}
 
 
+    // prints the grid with all positions of parent tree
     void Print()
     {
         unsigned int i;
@@ -60,6 +67,7 @@ public:
             std::cout << "-";
         std::cout << std::endl;
 
+        // parent tree
         std::vector<int> x_hist;
         std::vector<int> y_hist;
         Position* current = this;
@@ -97,31 +105,38 @@ public:
         std::cout << std::endl;
     }
 
+    // 2 positions are equal if they have the same x and y
     bool is(Position * goal_ptr)
     {
         return x == goal_ptr->x && y == goal_ptr->y;
     }
 
-    void Children(vector<Position* > &children)
+    void Children(vector<Position*> &children)
     {
         children.clear();
 
         std::vector<int> moves;
+        int xp = -1,yp = -1;
+        // parent will not be considered as a children
+        if(parent)
+        {
+            xp = parent->x;
+            yp = parent->y;
+        }
         for(int i: {-1,0,1})
         {
             for(int j: {-1,0,1})
             {
-                if(i != 0 || j != 0)
+                if(i != 0 || j != 0)    // avoid (x,y)...
                 {
-                    if(x+i >= 0 && x+i < n && y+j>=0 && y+j < n && !grid[n*(x+i)+y+j])
-                    {
+                    if(x+i >= 0 && x+i < n && y+j>=0 && y+j < n && !grid[n*(x+i)+y+j] && (x+i != xp || y+j != yp))
                         children.push_back(new Position(this, x+i, y+j));
-                    }
                 }
             }
         }
     }
 
+    // infinite norm for distance
     void Compute_h(const Position &goal)
     {
         h = abs(x-goal.x) + abs(y-goal.y);
@@ -147,6 +162,9 @@ protected:
 unsigned int Position::n = 20;
 // the grid will be initialized with random objects at the first call
 std::vector<unsigned int> Position::grid = std::vector<unsigned int>();
+
+
+
 
 int main()
 {

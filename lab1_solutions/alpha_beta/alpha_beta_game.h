@@ -13,6 +13,7 @@ template <class T> void AlphaBetaGame(bool p1_human = true, bool p2_human = fals
     game.GetAlphaBeta(a,b);
 
     int player = 1;
+    // continue until there is a winner or the game is over
     while(!game.Winner() && !game.Over())
     {
         if(is_human[player-1])
@@ -22,6 +23,8 @@ template <class T> void AlphaBetaGame(bool p1_human = true, bool p2_human = fals
         }
         else if (game.MustThink())
             alpha_beta(game, a, b, 0, 2*max_recur);
+
+        // player -> other player
         player = 3-player;
     }
     game.Print();

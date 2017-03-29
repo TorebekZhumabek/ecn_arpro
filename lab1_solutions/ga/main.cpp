@@ -1,28 +1,30 @@
 #include <iostream>
-#include <ok_galg/galg.h>
 #include <map>
-#include <chrono>
 #include "function_indiv.h"
+#include "genetic_algo.h"
 
 using namespace std;
-using namespace ok_galg;
 
 int main(int argc, char ** argv)
 {
     std::srand(std::time(0));
 
-    FunctionIndiv f;
+    Position f;f.Randomize();
 
-    std::chrono::time_point<std::chrono::system_clock> start, end;
-    start = std::chrono::system_clock::now();
+    /* config parameters :
+     *
+     *  int keep_best = 5;          // how many of the best individuals are always kept
+     *  int iter_max = 100;         // max iterations
+     *  int iter_out = 30;          // max iterations if it is always the same best individual
+     *  int full_population = 500;  // population size
+     */
+
+    Config config;
+    config.iter_max = 100;
+    config.iter_out = 30;
 
     // single-run solver
-    ok_galg::SolveSingleRun(f, YAML::Node(), 1, 1);
-
-    // multi-run in threads
-    //ok_galg::SolveMultiThread(f, config, 200, 4, false);
-
-    end = std::chrono::system_clock::now();
+    SolveGA(f, config);
 
     cout << "Final: ";
     f.Print();
@@ -30,11 +32,5 @@ int main(int argc, char ** argv)
     f.Randomize();
     cout << "Random: ";
     f.Print();
-
-
-    std::chrono::duration<double> elapsed_seconds = end-start;
-    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
-
-
 
 }

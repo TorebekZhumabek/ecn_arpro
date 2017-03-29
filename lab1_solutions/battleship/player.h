@@ -37,16 +37,13 @@ protected:
     bool human;
     std::string name;
     std::vector<int> grid;
-    unsigned int alive;
-    std::vector<unsigned int> alive_b;
+    std::vector<unsigned int> alive;
 
     // for computer: history of passed shots
     std::vector<unsigned int> hist;
 
-
-    // static for legends, lengths, etc.
+    // static for legends, etc.
     static std::vector<std::string> legend;
-    static std::vector<unsigned int> length;
 
     // print a grid line
     std::string PrintLine(unsigned int r);
