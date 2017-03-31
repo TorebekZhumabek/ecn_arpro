@@ -1,65 +1,63 @@
 #include <iostream>
+#include <vector>
+#include <string>
 
-using namespace std;
+using std::cout;
+using std::endl;
+using std::vector;
+using std::string;
 
-class Polygon
-{
-public:
-    string name;
-    double surface;
-    Polygon(double x)
-    {
-        surface = x;
-        name = "polygon";
-    }
+// some animals
+
+struct Duck {
+    void quacks() {}
+    string name = "duck";
+
 };
 
 
-
-class Rectangle : public Polygon
-{
-public:
-    Rectangle(double x) : Polygon(x)
-    {
-        //surface = x;
-        name = "rectangle";
-    }
+struct Dog  {
+    void barks() {}
+    string name = "dog";
 };
 
 
-
-class Circle
-{
-public:
-    string name;
-    double surface;
-    Circle(double x)
-    {
-        surface = x;
-        name = "circle";
-    }
+// a seagull that knows how to quack
+struct SmartSeagull {
+    void quacks() {}
+    string name = "seagull";
 };
 
+// a square with 4 sides
+struct Square {
+    int sides = 4;
+    string name = "square";
+};
 
-
-template<class T> void f(T p)
+// this template function needs the argument to have a quacks() method
+template <class T>
+void CompileIfDuck(T animal)
 {
-    cout << "i am a " << p.name << " with surface " << p.surface << endl;
+    animal.quacks();
 }
 
-
-
-int main()
+// this template function needs the argument to have a name member
+template <class T>
+void WhatAreYou(T object)
 {
-    Polygon p(4);
-    f<Polygon>(p);
+    cout << "I am a " << object.name << endl;
+}
 
-    Rectangle r(5);
-    f<Polygon>(r);
+int main() {
+  Duck duck;  Dog dog; SmartSeagull seagull;
 
-    Circle c(6);
-    f<Circle>(c);
+  CompileIfDuck(duck);		// compiles
+  //CompileIfDuck(dog);		// does not compile
+  CompileIfDuck(seagull);	// compiles because the SmartSeagull struct has a quacks() method
 
-
+  Square sq;
+  WhatAreYou(dog);
+  WhatAreYou(sq);           // compiles, does not care if argument is an animal or anything particular
+  //WhatAreYou(1);          // does not compile, 1 is a int and has no member called name
 
 }
