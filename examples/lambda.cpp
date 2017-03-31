@@ -12,6 +12,7 @@ public:
     int value() {return value_;}
     friend bool operator<(MyObj &o1, MyObj &o2)
     {
+        cout << "comparing using overloaded operator<" << endl;
         return o1.value() < o2.value();
     }
 
@@ -23,19 +24,12 @@ protected:
 
 bool compare(MyObj &o1, MyObj &o2)
 {
+    cout << "comparing using external compare function" << endl;
     return o1.value() < o2.value();
 }
 
-
-
-
 int main()
 {
-
-
-
-
-
 
     // random vector of int's
     vector<int> whatever(10);
@@ -68,17 +62,13 @@ int main()
     sort(v_obj.begin(),v_obj.end());
 
     // sort with lambda function
-    sort(v_obj.begin(),v_obj.end(),[](MyObj &_o1, MyObj &_o2){return _o1.value() < _o2.value();});
+    sort(v_obj.begin(),v_obj.end(),
+         [](MyObj &_o1, MyObj &_o2)
+            {   cout << "comparing with lambda function" << endl;
+                return _o1.value() < _o2.value();});
 
     for(auto &o: v_obj)
         cout << o.value() << " ";
     cout << endl;
-
-
-
-
-
-
-
 
 }
