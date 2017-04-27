@@ -58,7 +58,7 @@ void PassByValue(Polygon p)
 {
     cout << "Pass by value" << endl;
     cout << "   I just got a " << p.What() << endl;
-    cout << "   it is actually a " << p.WhatWithVirtual() << " (I hope)" << endl;
+    cout << "   It is actually a " << p.WhatWithVirtual() << " (I hope)" << endl;
     cout << "   Anyway it has " << p.sides() << " sides" << endl << endl;
 }
 
@@ -68,9 +68,10 @@ void PassByReference(Polygon& p)
 {
     cout << "Pass by reference" << endl;
     cout << "   I just got a " << p.What() << endl;
-    cout << "   it is actually a " << p.WhatWithVirtual() << endl;
+    cout << "   It is actually a " << p.WhatWithVirtual() << endl;
     cout << "   Anyway it has " << p.sides() << " sides" << endl << endl;
 }
+
 
 
 int main()
@@ -80,7 +81,7 @@ int main()
     Square s;
 
     // the correct function (virtual or not) will be called if directly called from the object
-    cout << "p is a " << t.What() << endl;
+    cout << "p is a " << p.What() << endl;
     cout << "t is a " << t.What() << endl;
     cout << "s is a " << s.WhatWithVirtual() << endl;
     cout << endl;
@@ -97,6 +98,7 @@ int main()
     // what about storing polygons in a vector?
     // a vector of values does not keep track of the actual class
     std::vector<Polygon> vec = {p, t, s};
+    cout << "exploring vector of values" << endl;
     for(auto &elem: vec)
     {
         cout << "this element is a " << elem.What() << endl;
@@ -105,6 +107,7 @@ int main()
 
     // to keep track we need a vector of references (pointers)
     std::vector<Polygon*> vec_ref = {&p, &t, &s};
+    cout << "exploring vector of pointers" << endl;
     for(auto &elem: vec_ref)
     {
         // functions then have to be called with arrow instead of dot
