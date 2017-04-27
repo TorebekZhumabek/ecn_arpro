@@ -30,3 +30,6 @@ add_executable(navigation a_star/navigation.cpp a_star/a_star.h)
 # Genetic Algorithm with multi-thread
 add_executable(function_ga ga/function_indiv.h ga/genetic_algo.h ga/main.cpp)
 target_link_libraries(function_ga ${CMAKE_THREAD_LIBS_INIT})
+
+# Hanoi puzzle
+add_executable(hanoi hanoi/hanoi.cpp)

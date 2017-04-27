@@ -19,15 +19,6 @@ void display(const vector<vector<int> > &rods)
 
     string line;
 
-   /* for(const auto &rod: rods)
-    {
-        cout << "Rod: ";
-        for(int i=0;i<rod.size();++i)
-            cout << rod[i] << " ";
-        cout << endl;
-    }*/
-
-
     for(int i=NB;i!=0;--i)
     {
         for(const auto &rod: rods)
@@ -109,7 +100,7 @@ int main()
     vector<vector<int> > rods(3);
     srand(time(NULL));
 
-    // 10 disks
+    // 10 disks placed at random
     for(unsigned int i=0;i<NB;++i)
     {
         int rod = rand()%3;
@@ -117,5 +108,6 @@ int main()
     }
     display(rods);
 
-    put_on(NB,1,rods);
+    // place everything on the first rod
+    put_on(NB,0,rods);
 }
