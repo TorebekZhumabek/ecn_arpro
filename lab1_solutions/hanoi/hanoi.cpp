@@ -19,7 +19,7 @@ void display(const vector<vector<int> > &rods)
 
     string line;
 
-    for(int i=NB;i!=0;--i)
+    for(int i=NB;i != 0;--i)
     {
         for(const auto &rod: rods)
         {

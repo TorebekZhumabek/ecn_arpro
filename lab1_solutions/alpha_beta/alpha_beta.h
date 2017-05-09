@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <vector>
+#include <iostream>
 
 
 /* This function uses alpha-beta algorithm for a given game configuration

@@ -1,3 +1,6 @@
+#ifndef FOURINAROW_CONFIG_H
+#define FOURINAROW_CONFIG_H
+
 #include <algorithm>
 #include <vector>
 #include <iostream>
@@ -179,3 +182,4 @@ protected:
     unsigned int turn_count;
     std::vector<unsigned int> positions;
 };
+#endif

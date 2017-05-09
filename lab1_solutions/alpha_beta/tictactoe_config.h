@@ -1,3 +1,7 @@
+#ifndef TICTACTOE_CONFIG_H
+#define TICTACTOE_CONFIG_H
+
+
 #include <algorithm>
 #include <vector>
 #include <iostream>
@@ -139,3 +143,4 @@ protected:
     std::vector<std::vector<unsigned int> > combos;
     std::vector<unsigned int> positions;
 };
+#endif

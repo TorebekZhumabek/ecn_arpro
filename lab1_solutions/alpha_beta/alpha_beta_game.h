@@ -1,3 +1,7 @@
+#ifndef AB_GAME_H
+#define AB_GAME_H
+
+
 #include <algorithm>
 #include <vector>
 #include "alpha_beta.h"
@@ -37,3 +41,5 @@ template <class T> void AlphaBetaGame(bool p1_human = true, bool p2_human = fals
 
 
 }
+
+#endif

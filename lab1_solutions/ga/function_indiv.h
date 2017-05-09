@@ -1,3 +1,8 @@
+#ifndef FUNCTION_INDIV_H
+#define FUNCTION_INDIV_H
+
+
+
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -62,3 +67,4 @@ protected:
 };
 
 
+#endif

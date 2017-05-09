@@ -7,7 +7,6 @@ add_compile_options(-std=c++11)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(YamlCpp yaml-cpp)
 
-
 # basic exercises
 add_executable(find_the_number basics/find_the_number.cpp)
 add_executable(rps basics/rps.cpp)
@@ -33,3 +32,7 @@ target_link_libraries(function_ga ${CMAKE_THREAD_LIBS_INIT})
 
 # Hanoi puzzle
 add_executable(hanoi hanoi/hanoi.cpp)
+
+# 21 sticks
+add_executable(sticks sticks/sticks.cpp)
+add_executable(sticks_ab alpha_beta/alpha_beta.h alpha_beta/alpha_beta_game.h sticks/sticks_config.h sticks/sticks_alpha_beta.cpp)
