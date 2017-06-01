@@ -21,13 +21,15 @@
 \section{Content of this lab}
 
 The goal of the first C++ labs is to discover the language by building small projects.
-Many projects are listed below and you are encouraged to try and build several of them. Most of them can be done without using evolved concepts of C++. You can also build your own project if you have a clear idea of the goal to be reached.
+Many projects are listed below and you are encouraged to try and build several of them. Most of them can be done without using evolved concepts of C++. You can also build your own project if you have a clear idea of the goal to be reached.\\
 
 You are encouraged to use functions, classes or even templates if you think it will lead to a better code that is easier to understand and to write.
 You are also encouraged to separate your code in several files. If you are not sure about classes or functions, you can always change it later and compare
-the same program with different code designs.
+the same program with different code designs.\\
 
-You may look for mathematical solutions, problem formulation or problem variations on Internet, but of course the actual code should come from yourselves.
+You may look for mathematical solutions, problem formulation or problem variations on Internet, but of course the actual code should come from yourselves. \\
+
+These problems can also be used to learn other programming languages.
 
 \subsection{How to compile}
 
@@ -195,6 +197,8 @@ The goal is to be the first to align 4 tokens, either vertically, horizontally o
  \aitip{Do not let the other player align 4 token (that is just trying not to lose), or try to guess best possible choices for the next 1, 2, 10... turns.}
 \end{itemize}
 
+\newpage
+
 \section{Algorithms}
 
 In this section, we program the computer to solve a given problem through an algorithm. Similarly to a cooking recipe, an algorithm is a sequence of basic steps (like finding the minimum value in a vector) that lead to an overall more complex behavior.
@@ -253,6 +257,26 @@ The starting position of the disks may be randomly generated or written in a fil
 \begin{itemize}
  \involves{File input, output, Vectors, Data representation, Recursive programming (functions)}
  \end{itemize}
+ 
+ \subsection{Reachable numbers with only 6 6's}
+ 
+ In this problem we are trying to write numbers with only 6 6's, as in:
+ \begin{eqnarray*}
+  1 =& 6/6 + 6 +6-6-6 \\
+  2 =& 6/6 + 6/6 + 6 - 6 \\
+  6 =& 6\times 6/6 + (6-6)/6 \\
+  10 =& (6\times(6+6) -6 -6)/6
+ \end{eqnarray*}
+ All 4 operations $\{+, -, \times, /\}$ are allowed in any order and any priority.
+ The goal is to find:
+ \begin{enumerate}
+  \item The first number that cannot be written this way.
+  \item The number of numbers that can be written this way.
+ \end{enumerate}
+\begin{itemize}
+ \involves{Functions, Recursive programming, Vectors}
+ \end{itemize}
+ 
  
  \subsection{Robust fitting with Hough lines}
  
