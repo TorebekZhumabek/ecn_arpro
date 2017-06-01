@@ -30,6 +30,9 @@ add_executable(navigation a_star/navigation.cpp a_star/a_star.h)
 add_executable(function_ga ga/function_indiv.h ga/genetic_algo.h ga/main.cpp)
 target_link_libraries(function_ga ${CMAKE_THREAD_LIBS_INIT})
 
+# Numbers made of 6 6's
+add_executable(find666666 666666/find666666.cpp)
+
 # Hanoi puzzle
 add_executable(hanoi hanoi/hanoi.cpp)
 
