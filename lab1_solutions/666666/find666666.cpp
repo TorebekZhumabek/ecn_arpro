@@ -7,15 +7,16 @@ using namespace std;
 
 const int n = 6;    // what we can find with n times the number n
 
-const bool units_only = true;
+const bool units_only = true;   // do not allow numbers such as 66 or 666
 
+// a structure to store a found result : numbers / operations / priority / result
 struct Res
 {
     int val;
     vector<int> op_base;
     vector<int> order_base;
     vector<int> base;
-    int div;
+    int score;
 
     Res(int v, vector<int> _op, vector<int> _order, vector<float> _base) : val(v), op_base(_op), order_base(_order)
     {
@@ -23,7 +24,8 @@ struct Res
         for(auto v: _base)
             base.push_back((int) v);
 
-        div = count(op_base.begin(), op_base.end(),3);
+        // count the number of divisions as it is used to get the best result (with less divisions and less substractions)
+        score = 3*count(op_base.begin(), op_base.end(),3) + count(op_base.begin(), op_base.end(),1);
     }
 
     void Print()
@@ -45,9 +47,11 @@ struct Res
         {
             auto o = order[0];
             bool parenthesis = false;
+
             // perform operation o
             switch(op[o])
             {
+
             case 0: // +
                 str[o] = str[o] + "+" + str[o+1] ;
                 if(o+1 < op.size())
@@ -280,7 +284,7 @@ int main()
             if(res_nb.back()->order_base.size() == n-1)
             {
                 sort(res_nb.begin(), res_nb.end(),[](Res* r1, Res* r2)
-                {return r1->base.size() == n && r1->div < r2->div;});
+                {return r1->base.size() == n && r1->score < r2->score;});
 
                 res_nb[0]->Print();
                 cout << '\n';

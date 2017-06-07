@@ -3,9 +3,6 @@ project(arpro_robot_sols)
 
 add_compile_options(-std=c++11)
 
-# YAML needed for genetic algorithms
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(YamlCpp yaml-cpp)
 
 # basic exercises
 add_executable(find_the_number basics/find_the_number.cpp)
