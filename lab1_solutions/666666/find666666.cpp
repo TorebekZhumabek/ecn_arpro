@@ -211,10 +211,10 @@ void eval(vector<vector<float>> &base, vector<int> op_base, int depth = 0)
                 }
 
                 //cout << "  final at " << PrintVec(nb) << PrintVec(op) << PrintVec(order) << '\n';
-                if(!div0 && res >= 0 && rintf(res) == res)
+                if(!div0 && res >= 0 && ((int) res) == res)
                 {
                     //    cout << "result is " << res << endl;
-                    results.push_back(Res(round(res), op_base, order_base, nb_or));
+                    results.push_back(Res((int) res, op_base, order_base, nb_or));
                 }
             }
         } while(next_permutation(order_base.begin(), order_base.end()));
