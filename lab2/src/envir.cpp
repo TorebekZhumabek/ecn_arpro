@@ -42,7 +42,7 @@ namespace arpro
         robots_.push_back(&_robot);
     }
 
-    void Environment::plot_trajectory(std::string name_, std::vector<double> x_, std::vector<double> y_, std::string color_)
+    void Environment::plotTrajectory(std::string name_, std::vector<double> x_, std::vector<double> y_, std::string color_)
     {
 
         matplotlibcpp::named_plot(name_, x_, y_,color_);
@@ -63,13 +63,13 @@ namespace arpro
         std::vector<std::string> colors = {"b","g","r","c"};
 
         // plot target motion
-        plot_trajectory("Target", x_hist, y_hist, "m");
+        plotTrajectory("Target", x_hist, y_hist, "m");
 
         unsigned int i=0;
         for(auto &robot: robots_)
         {
             robot->getHistory(x,y);
-            plot_trajectory(robot->name(), x, y, colors[i]);
+            plotTrajectory(robot->name(), x, y, colors[i]);
             ++i;
         }
 
